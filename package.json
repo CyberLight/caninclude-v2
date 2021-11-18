@@ -14,7 +14,8 @@
     "extends": "preact",
     "ignorePatterns": [
       "build/"
-    ]
+    ],
+    "root": true
   },
   "devDependencies": {
     "@fullhuman/postcss-purgecss": "^4.0.3",
@@ -22,6 +23,7 @@
     "enzyme-adapter-preact-pure": "^2.0.0",
     "eslint": "^8.2.0",
     "eslint-config-preact": "^1.2.0",
+    "eslint-plugin-compat": "^4.0.0",
     "jest": "^27.3.1",
     "jest-preset-preact": "^1.0.0",
     "preact-cli": "^0.1.0",
