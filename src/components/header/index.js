@@ -1,16 +1,20 @@
 import { h } from 'preact';
 import { Link } from 'preact-router/match';
 
-const Header = () => (
+const Header = ({ showLogo }) => (
 	<header className="flex flex-row bg-purple-600 text-gray-50 h-14 items-center justify-center">
-		<h1 class="p-2 capitalize">caninclude</h1>
 		<nav class="flex items-center">
 			<ul class="flex flex-wrap">
 				<li>
 					<Link 
 						activeClassName="bg-purple-400 bg-opacity-75 bg-no-repeat bg-full-h-3 bg-top bg-gradient-to-r from-purple-400 to-purple-400" 
 						class="block px-4 py-2 h-14 leading-10 hover:bg-purple-300 hover:bg-opacity-25 capitalize" 
-						href="/">main</Link>
+						href="/">
+							<div class="flex uppercase gap-2 items-center">
+								{ showLogo && <span class="block w-9 h-9 bg-logo" /> }
+								caninclude
+							</div>
+						</Link>
 				</li>
 				<li>
 					<Link 
