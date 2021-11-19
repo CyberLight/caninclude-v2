@@ -1,38 +1,23 @@
 import { h } from 'preact';
 import { Router } from 'preact-router';
-import { useState } from 'preact/hooks';
 import Header from './header';
+import Footer from './footer';
 
 // Code-splitting is automated for `routes` directory
 import Main from '../routes/main';
 import Result from '../routes/result';
+import About from '../routes/about';
 
 const App = () => {
-	const [showLogo, setShowLogo] = useState(false);
-
-	const onRouteChanged = (e) => {
-		switch (e.url) {
-			case '/result/': {
-				setShowLogo(true);
-				break;
-			}
-			case '/about': {
-				setShowLogo(true);
-				break;
-			}
-			default: {
-				setShowLogo(false);
-				break;
-			}
-		}
-	}
 	return (
-		<div id="app">
-			<Header showLogo={showLogo} />
-			<Router onChange={onRouteChanged}>
+		<div id="app" class="flex flex-col h-screen">
+			<Header />
+			<Router>
 				<Main path="/" />
+				<About path="/about" />
 				<Result path="/caninclude/" user="me" />
 			</Router>
+			<Footer />
 		</div>
 	);
 }
