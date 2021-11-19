@@ -10,7 +10,7 @@ const Logo = () => {
     const onImageLoaded = () => setLoading(false);
 
     return (
-        <div class="relative w-28 h-28 my-5">
+        <div class="relative w-28 h-28 mb-5">
             { loading && <LogoLoading /> }
             <picture>
                 <source srcset="/assets/logo.svg" type="image/svg+xml" />
