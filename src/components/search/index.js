@@ -19,7 +19,7 @@ const Search = () => {
                 <label htmlFor="child" class="sr-only w-7 px-4">Child</label>
                 <input 
                     id="child" 
-                    class="rounded border border-purple-600 border-b-purple-500 text-purple-100 mx-2 p-2 bg-purple-900 shadow-inset-thin placeholder-purple-300" 
+                    class="rounded border mx-2 p-2 shadow-inset-thin border-purple-100 dark:border-purple-600 border-b-purple-50 dark:border-b-purple-500 text-purple-900 dark:text-purple-100 bg-purple-300 dark:bg-purple-900 placeholder-purple-500 dark:placeholder-purple-300" 
                     name="child" 
                     type="text" 
                     placeholder="Child tag name"
@@ -49,7 +49,7 @@ const Search = () => {
                 <label htmlFor="parent" class="sr-only w-7 px-4">Parent</label>
                 <input 
                     id="parent" 
-                    class="rounded border border-purple-600 border-b-purple-500 text-purple-100 mx-2 p-2 bg-purple-900 shadow-inset-thin placeholder-purple-300" 
+                    class="rounded border mx-2 p-2 shadow-inset-thin border-purple-100 dark:border-purple-600 border-b-purple-50 dark:border-b-purple-500 text-purple-900 dark:text-purple-100 bg-purple-300 dark:bg-purple-900 placeholder-purple-500 dark:placeholder-purple-300" 
                     name="parent" 
                     type="text" 
                     placeholder="Parent tag name"
@@ -57,7 +57,7 @@ const Search = () => {
                     value={formData.parent} />
             </p>
             <p class="flex items-center">
-                <button class="bg-purple-600 px-4 rounded-lg h-full mx-2">Go</button>
+                <button class="bg-purple-600 text-gray-50 dark:text-current px-4 rounded-lg h-full mx-2">Go</button>
             </p>
             </form>
         </div>
