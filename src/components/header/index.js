@@ -1,12 +1,16 @@
 import { h } from 'preact';
 import Match, { Link } from 'preact-router/match';
-import { useState } from 'preact/hooks';
+import { useState, useEffect } from 'preact/hooks';
 import Hamburger from '../hamburger';
 
 const Header = () => {
-	const [menuClosed, setMenuClosed] = useState(true);
+	const [menuClosed, setMenuClosed] = useState(false);
 	const onMenuBtnClick = (e) => setMenuClosed(!e.target.checked);
 	const onMenuItemClick = () => setMenuClosed(true);
+
+	useEffect(() => {
+		setMenuClosed(true)
+	}, []);
 
 	return (
 		<header className="flex flex-col sm:flex-row bg-purple-600 text-gray-50 min-h-14 items-center justify-center">
