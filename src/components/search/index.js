@@ -13,7 +13,7 @@ const Search = () => {
     const onParentInput = (e) => setFormData({ ...formData, parent: e.target.value });
 
     return (
-        <div class="flex">
+        <div class="flex w-80 md:w-auto">
             <form class="flex flex-wrap justify-center items-center gap-1 my-5" action="/caninclude" method="POST">
             <p>
                 <label htmlFor="child" class="sr-only w-7 px-4">Child</label>
@@ -30,7 +30,7 @@ const Search = () => {
                 <label class="h-full">
                     <input type="checkbox" name="swap" class="peer sr-only" checked={swap} onClick={swapClick} />
                     <svg 
-                        class="fill-current h-full peer-checked:text-pink-400" 
+                        class="fill-current h-full peer-checked:text-pink-400 m-5 md:m-auto" 
                         width="28px" 
                         height="28px" 
                         viewBox="0 0 24 24" 
