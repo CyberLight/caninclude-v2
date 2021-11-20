@@ -14,7 +14,7 @@ const Search = () => {
 
     return (
         <div class="flex">
-            <form class="flex flex-wrap justify-center gap-1 my-5" action="/caninclude" method="POST">
+            <form class="flex flex-wrap justify-center items-center gap-1 my-5" action="/caninclude" method="POST">
             <p>
                 <label htmlFor="child" class="sr-only w-7 px-4">Child</label>
                 <input 
@@ -56,7 +56,7 @@ const Search = () => {
                     onInput={onParentInput}
                     value={formData.parent} />
             </p>
-            <p class="flex items-center">
+            <p class="flex items-center h-10">
                 <button class="bg-purple-600 text-gray-50 dark:text-current px-4 rounded-lg h-full mx-2">Go</button>
             </p>
             </form>
