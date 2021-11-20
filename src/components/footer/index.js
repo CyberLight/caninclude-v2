@@ -1,7 +1,7 @@
 import { h } from 'preact';
 
 const Footer = () => (
-    <footer class="flex flex-row font-thin h-20 bg-black justify-around items-center text-gray-200">    
+    <footer class="flex flex-row font-thin h-20 bg-black justify-evenly items-center text-gray-200">    
         <section class="py-1 px-2">
             <h3 class="text-sm">Links:</h3>
             <ul class="flex flex-row text-xs gap-2 flex-wrap">
