@@ -1,4 +1,4 @@
-module.exports = (config, env, helpers) => {
+module.exports = (config, env, helpers, /* options */) => {
   const postCssLoaders = helpers.getLoadersByName(config, 'postcss-loader');
   postCssLoaders.forEach(({ loader }) => {
     if (!loader.options.postcssOptions.plugins) {
@@ -9,5 +9,18 @@ module.exports = (config, env, helpers) => {
     // Add tailwind css at the top.
     plugins.unshift(require('tailwindcss'));
   });
+
+  if (!env.isProd) {
+    config.devServer.proxy = [
+      {
+        path: '/api/**',
+        target: 'http://localhost:8081',
+      },
+      {
+        path: '/api',
+        target: 'http://localhost:8081',
+      }
+    ];
+  }
   return config;
 };
