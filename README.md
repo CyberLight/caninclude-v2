@@ -25,3 +25,4 @@ For detailed explanation on how things work, checkout the [CLI Readme](https://g
 * [pre-rendering](https://preactjs.com/cli/pre-rendering/)
 * [urql (graphql-client)](https://formidable.com/open-source/urql/docs/basics/react-preact/)
 * [https://graphql.org/code/](https://graphql.org/code/)
+* [preactjs config recipes](https://github.com/preactjs/preact-cli/wiki/Config-Recipes#setting-proxy-for-dev-server-using-config-directly)
