@@ -4,11 +4,13 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
+    "start": "NODE_ENV=production node server",
     "build": "preact build",
     "serve": "sirv build --port 8080 --cors --single",
     "dev": "preact watch",
     "lint": "eslint src",
-    "test": "jest"
+    "test": "jest",
+    "api:dev": "PORT=8081 node server"
   },
   "eslintConfig": {
     "extends": "preact",
@@ -29,9 +31,11 @@
     "sirv-cli": "1.0.3"
   },
   "dependencies": {
+    "polka": "^0.5.2",
     "preact": "^10.5.15",
     "preact-render-to-string": "^5.1.19",
     "preact-router": "^3.2.1",
+    "sirv": "^1.0.18",
     "tailwindcss": "^2.2.19"
   },
   "jest": {
