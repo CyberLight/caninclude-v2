@@ -15,7 +15,7 @@ const App = () => {
 			<Router>
 				<Main path="/" />
 				<About path="/about" />
-				<Result path="/caninclude/" user="me" />
+				<Result path="/caninclude" />
 			</Router>
 			<Footer />
 		</div>

@@ -1,8 +1,10 @@
 import { h } from 'preact';
 
-const Result = () => {
+const Result = ({ matches }) => {
 	return (
-		<div class="flex" />
+		<div class="flex">
+			{`You matches: ${matches.child} > ${matches.parent}`}
+		</div>
 	);
 }
 

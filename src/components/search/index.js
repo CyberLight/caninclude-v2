@@ -14,7 +14,7 @@ const Search = () => {
 
     return (
         <div class="flex w-80 md:w-auto">
-            <form class="flex flex-wrap justify-center items-center gap-1 my-5" action="/caninclude" method="POST">
+            <form class="flex flex-wrap justify-center items-center gap-1 my-5" action="/caninclude" method="GET">
             <p>
                 <label htmlFor="child" class="sr-only w-7 px-4">Child</label>
                 <input 
