@@ -75,6 +75,28 @@ const Result = ({ matches: { child, parent } = {} }) => {
 							{get(result, 'child.ContentModel', []).map((block, index) => (<li key={index}>{mapBlock(block, [])}</li>))}
 						</ul>
 					</section>
+					<section class="flex-grow border-t dark:border-gray-400">
+						<table class="w-full mt-4">
+							<thead>
+								<tr class="text-left">
+									<th class="px-2">Browser</th>
+									<th class="px-2">Web HTML</th>
+									<th class="px-2">Web API</th>
+									<th class="px-2">CanIUse</th>
+								</tr>
+							</thead>
+							<tbody>
+								{Object.entries(get(result, 'child.support', {})).map(([browser, params], index) => {
+									const row = [browser].concat(Object.values(params));
+									return <tr key={index} class="w-full odd:bg-gray-300 dark:odd:bg-gray-900">{
+										row.map((col, index) => 
+											<td key={index} class="px-2">{col}</td>
+										)
+									}</tr>
+								})}
+							</tbody>
+						</table>
+					</section>
 				</section>
 				<section class="flex flex-col w-full h-20 order-1 text-center justify-center md:w-14 md:order-3 md:flex-grow md:h-auto md:justify-start">
 					<h2 class="sr-only">Can include?</h2>
@@ -99,6 +121,28 @@ const Result = ({ matches: { child, parent } = {} }) => {
 						<ul class="list-inside list-disc space-y-3 ml-7">
 							{get(result, 'parent.ContentModel', []).map((block, index) => (<li key={index}>{mapBlock(block, get(parentParams, 'ContentModel', []))}</li>))}
 						</ul>
+					</section>
+					<section class="flex-grow border-t dark:border-gray-400">
+						<table class="w-full mt-4">
+							<thead>
+								<tr class="text-left">
+									<th class="px-2">Browser</th>
+									<th class="px-2">Web HTML</th>
+									<th class="px-2">Web API</th>
+									<th class="px-2">CanIUse</th>
+								</tr>
+							</thead>
+							<tbody>
+								{Object.entries(get(result, 'parent.support', {})).map(([browser, params], index) => {
+									const row = [browser].concat(Object.values(params));
+									return <tr key={index} class="w-full odd:bg-gray-300 dark:odd:bg-gray-900">{
+										row.map((col, index) => 
+											<td key={index} class="px-2">{col}</td>
+										)
+									}</tr>
+								})}
+							</tbody>
+						</table>
 					</section>
 				</section>
 			</div>
