@@ -2,3 +2,5 @@ node_modules
 /build
 /*.log
 size-plugin.json
+server/spec.json
+server/params.json
