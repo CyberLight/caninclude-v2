@@ -26,7 +26,7 @@ const Result = ({ matches: { child, parent } = {} }) => {
 	const childParams = get(result, 'child.params', {});
 	const parentTag = get(result, 'parent.tag', `parent`);
 	const parentParams = get(result, 'parent.params', {});
-	const { can: iconType } = get(result, 'result', { can: 'can' });
+	const iconType = get(result, 'can', 'can');
 
 	const mapLine = (line) => (
 		<span class="inline-block border p-1 border-gray-900 dark:border-gray-500 space-x-2 rounded-md whitespace-nowrap">
@@ -112,9 +112,9 @@ const Result = ({ matches: { child, parent } = {} }) => {
 						{ iconType === CantIconType && <CantIcon /> }
 						{ iconType === DoubtIconType && <DoubtIcon /> }
 					</div>
-					{ iconType === CanIconType && <span class="flex text-green-600 dark:text-green-300">Yes, you can!</span> }
-					{ iconType === CantIconType && <span class="flex text-red-600 dark:text-red-300">No, you can't!</span> }
-					{ iconType === DoubtIconType && <span class="flex text-yellow-600 dark:text-yellow-300">Doubt?!</span> }
+					{ iconType === CanIconType && <span class="flex text-green-600 dark:text-green-400">Yes, you can!</span> }
+					{ iconType === CantIconType && <span class="flex text-red-600 dark:text-red-400">No, you can't!</span> }
+					{ iconType === DoubtIconType && <span class="flex text-yellow-600 dark:text-yellow-400">Doubt?!</span> }
 				</section>					
 				<section class="flex flex-col p-2 m-4 bg-gray-200 dark:bg-gray-800 rounded-lg order-4 peer-checked:hidden h-auto space-y-1 relative md:peer-checked:flex md:flex md:order-4 md:flex-grow md:w-1/3 md:pt-16">
 					<h2 class="capitalize top-0 left-0 md:bg-red-400 md:dark:bg-red-800 md:p-4 md:rounded-br-3xl md:rounded-tl-lg md:absolute"><a href="#parent">tag: <b>{parentTag}</b></a></h2>
