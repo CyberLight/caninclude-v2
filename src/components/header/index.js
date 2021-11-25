@@ -14,7 +14,7 @@ const Header = () => {
 
 	return (
 		<header className="flex flex-col sm:flex-row bg-purple-600 text-gray-50 min-h-14 items-center justify-center">
-			<nav class={`flex flex-col text-center w-full sm:flex-row sm:w-auto relative ${ menuClosed && 'h-14 overflow-hidden'}`}>
+			<nav class={`flex flex-col text-center w-full sm:flex-row sm:w-auto relative ${ menuClosed && 'h-14 overflow-hidden' || 'h-screen'}`}>
 				<ul class="contents">
 					<li class="contents">
 						<Link 
