@@ -57,19 +57,19 @@ const Result = ({ matches: { child, parent } = {} }) => {
 				</div>
 				<section class="flex-col p-2 m-4 bg-gray-200 dark:bg-gray-800 rounded-lg order-3 hidden peer-checked:flex space-y-1 h-auto relative md:flex md:flex-grow md:order-2 md:w-1/3 md:pt-16">
 					<h2 class="capitalize top-0 left-0 md:bg-red-400 md:dark:bg-red-800 md:p-4 md:rounded-br-3xl md:rounded-tl-lg md:absolute"><a href="#child">tag: <b>{childTag}</b></a></h2>
-					<section class="flex-grow border-l-2 border-blue-400 p-2 bg-gray-300 dark:bg-gray-700">
+					<section class="flex-grow border-l-4 border-blue-400 p-2 bg-gray-300 dark:bg-gray-700">
 						<h3 class="font-bold">Categories</h3>	
 						<ul class="list-inside list-disc space-y-3 ml-7">
 							{get(result, 'child.Categories', []).map((block, index) => (<li key={index}>{mapBlock(block, get(childParams, 'Categories', []))}</li>))}
 						</ul>
 					</section>
-					<section class="flex-grow border-l-2 p-2 border-yellow-500 dark:border-yellow-300">
+					<section class="flex-grow border-l-4 p-2 border-yellow-500 dark:border-yellow-300">
 						<h3 class="font-bold">Contexts in which this element can be used</h3>
 						<ul class="list-inside list-disc space-y-3 ml-7">
 							{get(result, 'child.ContextsInWhichThisElementCanBeUsed', []).map((block, index) => (<li key={index}>{mapBlock(block, [])}</li>))}
 						</ul>
 					</section>
-					<section class="flex-grow border-l-2 border-blue-400 p-2">
+					<section class="flex-grow border-l-4 border-blue-400 p-2">
 						<h3 class="font-bold">Content model</h3>
 						<ul class="list-inside list-disc space-y-3 ml-7">
 							{get(result, 'child.ContentModel', []).map((block, index) => (<li key={index}>{mapBlock(block, [])}</li>))}
@@ -104,19 +104,19 @@ const Result = ({ matches: { child, parent } = {} }) => {
 				</section>					
 				<section class="flex flex-col p-2 m-4 bg-gray-200 dark:bg-gray-800 rounded-lg order-4 peer-checked:hidden h-auto space-y-1 relative md:peer-checked:flex md:flex md:order-4 md:flex-grow md:w-1/3 md:pt-16">
 					<h2 class="capitalize top-0 left-0 md:bg-red-400 md:dark:bg-red-800 md:p-4 md:rounded-br-3xl md:rounded-tl-lg md:absolute"><a href="#parent">tag: <b>{parentTag}</b></a></h2>
-					<section class="flex-grow border-l-2 border-blue-400 p-2">
+					<section class="flex-grow border-l-4 border-blue-400 p-2">
 						<h3 class="font-bold">Categories</h3>	
 						<ul class="list-inside list-disc space-y-3 ml-7">
 							{get(result, 'parent.Categories', []).map((block, index) => (<li key={index}>{mapBlock(block, [])}</li>))}
 						</ul>
 					</section>
-					<section class="flex-grow border-l-2 p-2 border-yellow-500 dark:border-yellow-300">
+					<section class="flex-grow border-l-4 p-2 border-yellow-500 dark:border-yellow-300">
 						<h3 class="font-bold">Contexts in which this element can be used</h3>
 						<ul class="list-inside list-disc space-y-3 ml-7">
 							{get(result, 'parent.ContextsInWhichThisElementCanBeUsed', []).map((block, index) => (<li key={index}>{mapBlock(block, [])}</li>))}
 						</ul>
 					</section>
-					<section class="flex-grow border-l-2 border-blue-400 p-2 bg-gray-300 dark:bg-gray-700">
+					<section class="flex-grow border-l-4 border-blue-400 p-2 bg-gray-300 dark:bg-gray-700">
 						<h3 class="font-bold">Content model</h3>
 						<ul class="list-inside list-disc space-y-3 ml-7">
 							{get(result, 'parent.ContentModel', []).map((block, index) => (<li key={index}>{mapBlock(block, get(parentParams, 'ContentModel', []))}</li>))}
