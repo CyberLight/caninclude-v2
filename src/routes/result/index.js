@@ -1,6 +1,12 @@
 import { h } from 'preact';
 import { useState, useEffect } from 'preact/hooks';
 import get from 'lodash/get';
+import CanIcon from '../../components/icons/can';
+import CantIcon from '../../components/icons/cant';
+import DoubtIcon from '../../components/icons/doubt';
+const CanIconType = 'can';
+const CantIconType = 'cant';
+const DoubtIconType = 'doubt';
 
 const Result = ({ matches: { child, parent } = {} }) => {
 	const [result, setResult] = useState();
@@ -20,6 +26,7 @@ const Result = ({ matches: { child, parent } = {} }) => {
 	const childParams = get(result, 'child.params', {});
 	const parentTag = get(result, 'parent.tag', `parent`);
 	const parentParams = get(result, 'parent.params', {});
+	const { can: iconType } = get(result, 'result', { can: 'can' });
 
 	const mapLine = (line) => (
 		<span class="inline-block border p-1 border-gray-900 dark:border-gray-500 space-x-2 rounded-md whitespace-nowrap">
@@ -51,7 +58,7 @@ const Result = ({ matches: { child, parent } = {} }) => {
 			<div class="flex flex-col w-full h-full relative md:flex-row">
 				<input id="child" class="sr-only peer" type="radio" name="tabs" value="child" checked />
 				<input id="parent" class="sr-only" type="radio" name="tabs" value="parent" />
-				<div class="flex justify-between gap-2 order-2 border-b text-gray-200 border-b-red-800 peer-checked-fch:bg-red-800 peer-not-checked-lch:bg-red-800 md:hidden sm:mt-5">
+				<div class="flex justify-between gap-2 order-2 border-b text-gray-200 border-b-red-800 peer-checked-fch:bg-red-800 peer-not-checked-lch:bg-red-800 md:hidden">
 					<label htmlFor="child" class="text-left p-4 rounded-tr-xl bg-gray-600 uppercase">{`<${childTag}/>`}</label>
 					<label htmlFor="parent" class="text-right p-4 rounded-tl-xl bg-gray-600 uppercase">{`<${parentTag}/>`}</label>
 				</div>
@@ -98,9 +105,16 @@ const Result = ({ matches: { child, parent } = {} }) => {
 						</table>
 					</section>
 				</section>
-				<section class="flex flex-col w-full h-20 order-1 text-center justify-center md:w-14 md:order-3 md:flex-grow md:h-auto md:justify-start">
+				<section class="flex flex-row w-full my-4 order-1 text-center justify-center items-center md:w-14 md:order-3 md:flex-grow md:h-auto md:justify-start md:flex-col">
 					<h2 class="sr-only">Can include?</h2>
-					<span>Result</span>
+					<div class="flex flex-col h-16 w-20">
+						{ iconType === CanIconType && <CanIcon /> }
+						{ iconType === CantIconType && <CantIcon /> }
+						{ iconType === DoubtIconType && <DoubtIcon /> }
+					</div>
+					{ iconType === CanIconType && <span class="flex text-green-600 dark:text-green-300">Yes, you can!</span> }
+					{ iconType === CantIconType && <span class="flex text-red-600 dark:text-red-300">No, you can't!</span> }
+					{ iconType === DoubtIconType && <span class="flex text-yellow-600 dark:text-yellow-300">Doubt?!</span> }
 				</section>					
 				<section class="flex flex-col p-2 m-4 bg-gray-200 dark:bg-gray-800 rounded-lg order-4 peer-checked:hidden h-auto space-y-1 relative md:peer-checked:flex md:flex md:order-4 md:flex-grow md:w-1/3 md:pt-16">
 					<h2 class="capitalize top-0 left-0 md:bg-red-400 md:dark:bg-red-800 md:p-4 md:rounded-br-3xl md:rounded-tl-lg md:absolute"><a href="#parent">tag: <b>{parentTag}</b></a></h2>
