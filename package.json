@@ -31,9 +31,10 @@
     "sirv-cli": "1.0.3"
   },
   "dependencies": {
+    "caninclude-analyzer": "github:CyberLight/caninclude-analyzer#v1.0.1",
     "lodash": "^4.17.21",
     "polka": "^0.5.2",
-    "preact": "^10.5.15",
+    "preact": "^10.6.1",
     "preact-render-to-string": "^5.1.19",
     "preact-router": "^3.2.1",
     "sirv": "^1.0.18",
