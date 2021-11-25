@@ -3,7 +3,7 @@ import Search from '../../components/search'
 import Logo from '../../components/logo'
 
 const Main = () => (
-	<main class="flex flex-col items-center justify-center flex-grow">
+	<main class="flex flex-col items-center justify-center min-h-content">
 		<h1 class="sr-only">Can I include</h1>
 		<section class="flex flex-col items-center">
             <h2 class="sr-only">Welcome</h2>
