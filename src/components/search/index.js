@@ -1,5 +1,6 @@
 import { h } from 'preact';
 import { useState } from 'preact/hooks';
+import { route } from 'preact-router';
 
 const Search = () => {
     const [swap, setSwap] = useState(false);
@@ -11,10 +12,15 @@ const Search = () => {
     };
     const onChildInput = (e) => setFormData({ ...formData, child: e.target.value });
     const onParentInput = (e) => setFormData({ ...formData, parent: e.target.value });
+    const onSubmit = (e) => {
+         e.preventDefault();
+         const formData = new FormData(e.target);
+         route(`/caninclude?${new URLSearchParams(formData)}`);
+    };
 
     return (
         <div class="flex w-80 md:w-auto">
-            <form class="flex flex-wrap justify-center items-center gap-1 my-5" action="/caninclude" method="GET">
+            <form class="flex flex-wrap justify-center items-center gap-1 my-5" onSubmit={onSubmit} action="/caninclude" method="GET" enctype="application/x-www-form-urlencoded">
             <p>
                 <label htmlFor="child" class="sr-only w-7 px-4">Child</label>
                 <input 
