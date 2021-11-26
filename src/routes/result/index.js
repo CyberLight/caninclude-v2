@@ -10,17 +10,34 @@ const DoubtIconType = 'doubt';
 
 const Result = ({ matches: { child, parent } = {} }) => {
 	const [result, setResult] = useState();
+	const [childSelectedParams, setChildSelectedParams] = useState([]);
+	const [parentSelectedParams, setParentSelectedParams] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
 
+	const childSelectParamHandler = (e) => {
+		if (e.target.checked) {
+			setChildSelectedParams([...childSelectedParams, `is:${e.target.name}`]);
+		} else {
+			setChildSelectedParams(childSelectedParams.filter((param) => param !== `is:${e.target.name}`));
+		}
+	};
+	const parentSelectParamHandler = (e) => {
+		if (e.target.checked) {
+			setParentSelectedParams([...parentSelectedParams, `is:${e.target.name}`]);
+		} else {
+			setParentSelectedParams(parentSelectedParams.filter((param) => param !== `is:${e.target.name}`));
+		}
+	};
+
 	useEffect(() => {
-		const params = new URLSearchParams({ child, parent });
+		const params = new URLSearchParams({ child, parent, childParams: childSelectedParams, parentParams: parentSelectedParams });
 		fetch(`/api/caninclude?${params}`)
 			.then((r) => r.json())
 			.then((json) => setResult(json.result))
 			.catch((e) => setError(e))
 			.finally(() => setLoading(false));
-	}, [child, parent]);
+	}, [child, parent, childSelectedParams, parentSelectedParams]);
 
 	const childTag = get(result, 'child.tag', 'child');
 	const childParams = get(result, 'child.params', {});
@@ -28,11 +45,11 @@ const Result = ({ matches: { child, parent } = {} }) => {
 	const parentParams = get(result, 'parent.params', {});
 	const iconType = get(result, 'can', 'can');
 
-	const mapLine = (line) => (
+	const mapLine = (line, clickHandler) => (
 		<span class="inline-block border p-1 border-gray-900 dark:border-gray-500 space-x-2 rounded-md whitespace-nowrap">
 			<a href={line.href} class="h-full inline-block text-yellow-700 dark:text-yellow-500 align-top">{line.text}</a>
 			<label class="inline-block relative w-12 h-6 select-none cursor-pointer align-top">
-				<input type="checkbox" name={line.hashText} class="sr-only peer" />
+				<input type="checkbox" name={line.hashText} class="sr-only peer" onClick={clickHandler} disabled={loading} />
 				<span class="h-6 w-6 border-4 absolute z-10 rounded-full bg-white transition-transform duration-300 ease-in-out flex justify-center items-centerborder-gray-100 peer-checked:translate-x-6 border-gray-500 peer-checked:border-green-400" />
 				<span class="h-full w-full absolute left-0 top-0 rounded-full bg-gray-500 peer-checked:bg-green-400" />
 			</label>
@@ -43,10 +60,10 @@ const Result = ({ matches: { child, parent } = {} }) => {
 		return (<a href={line.href} class="text-yellow-700 dark:text-yellow-500">{line.text}</a>);
 	}
 
-	const mapBlock = (block, params=[]) => {
+	const mapBlock = (block, params=[], clickHandler = () => {}) => {
 		return block.map((line) => {
 			if (typeof line !== 'string') {
-				return params.includes(line.hashText) ? mapLine(line) : mapLink(line);
+				return params.includes(line.hashText) ? mapLine(line, clickHandler) : mapLink(line);
 			}
 			return line;
 		})
@@ -67,7 +84,7 @@ const Result = ({ matches: { child, parent } = {} }) => {
 					<section class="flex-grow border-l-4 border-blue-400 p-2 bg-gray-300 dark:bg-gray-700">
 						<h3 class="font-bold">Categories</h3>	
 						<ul class="list-inside list-disc space-y-3 ml-7">
-							{get(result, 'child.Categories', []).map((block, index) => (<li key={index}>{mapBlock(block, get(childParams, 'Categories', []))}</li>))}
+							{get(result, 'child.Categories', []).map((block, index) => (<li key={index}>{mapBlock(block, get(childParams, 'Categories', []), childSelectParamHandler)}</li>))}
 						</ul>
 					</section>
 					<section class="flex-grow border-l-4 p-2 border-yellow-500 dark:border-yellow-300">
@@ -133,7 +150,7 @@ const Result = ({ matches: { child, parent } = {} }) => {
 					<section class="flex-grow border-l-4 border-blue-400 p-2 bg-gray-300 dark:bg-gray-700">
 						<h3 class="font-bold">Content model</h3>
 						<ul class="list-inside list-disc space-y-3 ml-7">
-							{get(result, 'parent.ContentModel', []).map((block, index) => (<li key={index}>{mapBlock(block, get(parentParams, 'ContentModel', []))}</li>))}
+							{get(result, 'parent.ContentModel', []).map((block, index) => (<li key={index}>{mapBlock(block, get(parentParams, 'ContentModel', []), parentSelectParamHandler)}</li>))}
 						</ul>
 					</section>
 					<section class="flex-grow border-t dark:border-gray-400">
