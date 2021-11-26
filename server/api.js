@@ -12,7 +12,7 @@ const resultsMap = {
 
 module.exports = polka()
 	.get('/caninclude', (req, res) => {
-		const { child, parent } = req.query;
+		const { child, parent, childParams, parentParams } = req.query;
         res.statusCode = 200;
 		const filteredTags = spec.filter(
 			(tag) => [child, parent].includes(tag.tag))
@@ -20,6 +20,6 @@ module.exports = polka()
 		const result = { child: filteredTags[child], parent: filteredTags[parent] };
 		result.child.params = params[child].params;
 		result.parent.params = params[parent].params;
-		result.can = resultsMap[analyzer.canInclude({ name: child }, { name: parent })];
+		result.can = resultsMap[analyzer.canInclude({ name: child, params: childParams }, { name: parent, params: parentParams })];
 		res.end(JSON.stringify({ ok: true, result }));
 	});
