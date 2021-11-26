@@ -4,6 +4,8 @@ import get from 'lodash/get';
 import CanIcon from '../../components/icons/can';
 import CantIcon from '../../components/icons/cant';
 import DoubtIcon from '../../components/icons/doubt';
+import TagSettings from '../../components/tagsettings';
+
 const CanIconType = 'can';
 const CantIconType = 'cant';
 const DoubtIconType = 'doubt';
@@ -22,6 +24,7 @@ const Result = ({ matches: { child, parent } = {} }) => {
 			setChildSelectedParams(childSelectedParams.filter((param) => param !== `is:${e.target.name}`));
 		}
 	};
+
 	const parentSelectParamHandler = (e) => {
 		if (e.target.checked) {
 			setParentSelectedParams([...parentSelectedParams, `is:${e.target.name}`]);
@@ -40,30 +43,19 @@ const Result = ({ matches: { child, parent } = {} }) => {
 	}, [child, parent, childSelectedParams, parentSelectedParams]);
 
 	const childTag = get(result, 'child.tag', 'child');
-	const childParams = get(result, 'child.params', {});
+	const childParams = get(result, 'child.params', []);
 	const parentTag = get(result, 'parent.tag', `parent`);
-	const parentParams = get(result, 'parent.params', {});
+	const parentParams = get(result, 'parent.params', []);
 	const iconType = get(result, 'can', 'can');
-
-	const mapLine = (line, clickHandler) => (
-		<span class="inline-block border p-1 border-gray-900 dark:border-gray-500 space-x-2 rounded-md whitespace-nowrap">
-			<a href={line.href} class="h-full inline-block text-yellow-700 dark:text-yellow-500 align-top">{line.text}</a>
-			<label class="inline-block relative w-12 h-6 select-none cursor-pointer align-top">
-				<input type="checkbox" name={line.hashText} class="sr-only peer" onClick={clickHandler} disabled={loading} />
-				<span class="h-6 w-6 border-4 absolute z-10 rounded-full bg-white transition-transform duration-300 ease-in-out flex justify-center items-centerborder-gray-100 peer-checked:translate-x-6 border-gray-500 peer-checked:border-green-400" />
-				<span class="h-full w-full absolute left-0 top-0 rounded-full bg-gray-500 peer-checked:bg-green-400" />
-			</label>
-		</span>
-	);
 
 	const mapLink = (line) => {
 		return (<a href={line.href} class="text-yellow-700 dark:text-yellow-500">{line.text}</a>);
 	}
 
-	const mapBlock = (block, params=[], clickHandler = () => {}) => {
+	const mapBlock = (block) => {
 		return block.map((line) => {
 			if (typeof line !== 'string') {
-				return params.includes(line.hashText) ? mapLine(line, clickHandler) : mapLink(line);
+				return mapLink(line);
 			}
 			return line;
 		})
@@ -81,22 +73,29 @@ const Result = ({ matches: { child, parent } = {} }) => {
 				</div>
 				<section class="flex-col p-2 m-4 bg-gray-200 dark:bg-gray-800 rounded-lg order-3 hidden peer-checked:flex space-y-1 h-auto relative md:flex md:flex-grow md:order-2 md:w-1/3 md:pt-16">
 					<h2 class="capitalize top-0 left-0 md:bg-red-400 md:dark:bg-red-800 md:p-4 md:rounded-br-3xl md:rounded-tl-lg md:absolute">tag: <b class="uppercase">{`<${childTag}/>`}</b></h2>
-					<section class="flex-grow border-l-4 border-blue-400 p-2 bg-gray-300 dark:bg-gray-700">
+					<section class="flex-grow border-l-4 border-blue-400 p-2 bg-gray-300 dark:bg-gray-700 relative">
 						<h3 class="font-bold">Categories</h3>	
+						{childParams.length > 0 && 
+							<TagSettings 
+								id="child_tag_settings" 
+								lines={childParams} 
+								clickHandler={childSelectParamHandler} 
+								loading={loading}
+							/>}
 						<ul class="list-inside list-disc space-y-3 ml-7">
-							{get(result, 'child.Categories', []).map((block, index) => (<li key={index}>{mapBlock(block, get(childParams, 'Categories', []), childSelectParamHandler)}</li>))}
+							{get(result, 'child.Categories', []).map((block, index) => (<li key={index}>{mapBlock(block)}</li>))}
 						</ul>
 					</section>
 					<section class="flex-grow border-l-4 p-2 border-yellow-500 dark:border-yellow-300">
 						<h3 class="font-bold">Contexts in which this element can be used</h3>
 						<ul class="list-inside list-disc space-y-3 ml-7">
-							{get(result, 'child.ContextsInWhichThisElementCanBeUsed', []).map((block, index) => (<li key={index}>{mapBlock(block, [])}</li>))}
+							{get(result, 'child.ContextsInWhichThisElementCanBeUsed', []).map((block, index) => (<li key={index}>{mapBlock(block)}</li>))}
 						</ul>
 					</section>
 					<section class="flex-grow border-l-4 border-blue-400 p-2">
 						<h3 class="font-bold">Content model</h3>
 						<ul class="list-inside list-disc space-y-3 ml-7">
-							{get(result, 'child.ContentModel', []).map((block, index) => (<li key={index}>{mapBlock(block, [])}</li>))}
+							{get(result, 'child.ContentModel', []).map((block, index) => (<li key={index}>{mapBlock(block)}</li>))}
 						</ul>
 					</section>
 					<section class="flex-grow border-t dark:border-gray-400">
@@ -138,19 +137,26 @@ const Result = ({ matches: { child, parent } = {} }) => {
 					<section class="flex-grow border-l-4 border-blue-400 p-2">
 						<h3 class="font-bold">Categories</h3>	
 						<ul class="list-inside list-disc space-y-3 ml-7">
-							{get(result, 'parent.Categories', []).map((block, index) => (<li key={index}>{mapBlock(block, [])}</li>))}
+							{get(result, 'parent.Categories', []).map((block, index) => (<li key={index}>{mapBlock(block)}</li>))}
 						</ul>
 					</section>
 					<section class="flex-grow border-l-4 p-2 border-yellow-500 dark:border-yellow-300">
 						<h3 class="font-bold">Contexts in which this element can be used</h3>
 						<ul class="list-inside list-disc space-y-3 ml-7">
-							{get(result, 'parent.ContextsInWhichThisElementCanBeUsed', []).map((block, index) => (<li key={index}>{mapBlock(block, [])}</li>))}
+							{get(result, 'parent.ContextsInWhichThisElementCanBeUsed', []).map((block, index) => (<li key={index}>{mapBlock(block)}</li>))}
 						</ul>
 					</section>
-					<section class="flex-grow border-l-4 border-blue-400 p-2 bg-gray-300 dark:bg-gray-700">
+					<section class="flex-grow border-l-4 border-blue-400 p-2 bg-gray-300 dark:bg-gray-700 relative">
 						<h3 class="font-bold">Content model</h3>
+						{parentParams.length > 0 && 
+							<TagSettings 
+								id="parent_tag_settings" 
+								lines={parentParams} 
+								clickHandler={parentSelectParamHandler} 
+								loading={loading}
+							/>}
 						<ul class="list-inside list-disc space-y-3 ml-7">
-							{get(result, 'parent.ContentModel', []).map((block, index) => (<li key={index}>{mapBlock(block, get(parentParams, 'ContentModel', []), parentSelectParamHandler)}</li>))}
+							{get(result, 'parent.ContentModel', []).map((block, index) => (<li key={index}>{mapBlock(block)}</li>))}
 						</ul>
 					</section>
 					<section class="flex-grow border-t dark:border-gray-400">
