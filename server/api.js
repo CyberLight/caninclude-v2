@@ -38,8 +38,6 @@ module.exports = polka()
 
 		result.child.params = Object.values(childParamList);
 		result.parent.params = Object.values(parentParamList);
-		console.warn('<<<<<< result.child.params:', result.child.params);
-		console.warn('<<<<<< result.parent.params: ', result.parent.params);
 		result.can = resultsMap[analyzer.canInclude({ name: child, params: childParams }, { name: parent, params: parentParams })];
 		res.end(JSON.stringify({ ok: true, result }));
 	});
