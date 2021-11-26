@@ -63,7 +63,7 @@ const Result = ({ matches: { child, parent } = {} }) => {
 					<label htmlFor="parent" class="text-right p-4 rounded-tl-xl bg-gray-600 uppercase">{`<${parentTag}/>`}</label>
 				</div>
 				<section class="flex-col p-2 m-4 bg-gray-200 dark:bg-gray-800 rounded-lg order-3 hidden peer-checked:flex space-y-1 h-auto relative md:flex md:flex-grow md:order-2 md:w-1/3 md:pt-16">
-					<h2 class="capitalize top-0 left-0 md:bg-red-400 md:dark:bg-red-800 md:p-4 md:rounded-br-3xl md:rounded-tl-lg md:absolute"><a href="#child">tag: <b>{childTag}</b></a></h2>
+					<h2 class="capitalize top-0 left-0 md:bg-red-400 md:dark:bg-red-800 md:p-4 md:rounded-br-3xl md:rounded-tl-lg md:absolute">tag: <b class="uppercase">{`<${childTag}/>`}</b></h2>
 					<section class="flex-grow border-l-4 border-blue-400 p-2 bg-gray-300 dark:bg-gray-700">
 						<h3 class="font-bold">Categories</h3>	
 						<ul class="list-inside list-disc space-y-3 ml-7">
@@ -117,7 +117,7 @@ const Result = ({ matches: { child, parent } = {} }) => {
 					{ iconType === DoubtIconType && <span class="flex text-yellow-600 dark:text-yellow-400">Doubt?!</span> }
 				</section>					
 				<section class="flex flex-col p-2 m-4 bg-gray-200 dark:bg-gray-800 rounded-lg order-4 peer-checked:hidden h-auto space-y-1 relative md:peer-checked:flex md:flex md:order-4 md:flex-grow md:w-1/3 md:pt-16">
-					<h2 class="capitalize top-0 left-0 md:bg-red-400 md:dark:bg-red-800 md:p-4 md:rounded-br-3xl md:rounded-tl-lg md:absolute"><a href="#parent">tag: <b>{parentTag}</b></a></h2>
+					<h2 class="capitalize top-0 left-0 md:bg-red-400 md:dark:bg-red-800 md:p-4 md:rounded-br-3xl md:rounded-tl-lg md:absolute">tag: <b class="uppercase">{`<${parentTag}/>`}</b></h2>
 					<section class="flex-grow border-l-4 border-blue-400 p-2">
 						<h3 class="font-bold">Categories</h3>	
 						<ul class="list-inside list-disc space-y-3 ml-7">
