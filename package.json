@@ -31,7 +31,7 @@
     "sirv-cli": "1.0.3"
   },
   "dependencies": {
-    "caninclude-analyzer": "github:CyberLight/caninclude-analyzer#v1.0.3",
+    "caninclude-analyzer": "github:CyberLight/caninclude-analyzer#v1.0.5",
     "lodash": "^4.17.21",
     "polka": "^0.5.2",
     "preact": "^10.6.1",
