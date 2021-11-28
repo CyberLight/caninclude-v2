@@ -41,9 +41,18 @@ module.exports = polka()
 
 		result.child.params = Object.values(childParamList);
 		result.parent.params = Object.values(parentParamList);
-		result.include = analyzer.canInclude({ name: child, params: childParams }, { name: parent, params: parentParams }, true);
+		result.include = analyzer.canInclude(
+			{ name: child, params: childParams }, 
+			{ name: parent, params: parentParams }, 
+			true
+		);
 		result.include.can = resultsMap[result.include.can];
-
+		if (result.include.alternative) {
+			result.include.alternative = {
+				...result.include.alternative,
+				can: resultsMap[result.include.alternative.can],
+			};
+		}
 		const data = JSON.stringify({ ok: true, result });
 		const headers = {};
 		headers[TYPE] = 'application/json';
