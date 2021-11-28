@@ -46,16 +46,28 @@ const Result = ({ matches: { child, parent } = {} }) => {
 	const childParams = get(result, 'child.params', []);
 	const parentTag = get(result, 'parent.tag', `parent`);
 	const parentParams = get(result, 'parent.params', []);
-	const iconType = get(result, 'can', 'can');
+	const iconType = get(result, 'include.can', 'can');
+	const includeParams = get(result, 'include.params', []).reduce((o, [key, props]) => ({[key]: props, ...o}), {});
 
-	const mapLink = (line) => {
-		return (<a href={line.href} class="text-yellow-700 dark:text-yellow-500">{line.text}</a>);
+	const mapLink = (line, selectParams) => {
+		const params = selectParams[line.hashText];
+		return params 
+			? (<span class={`border whitespace-nowrap rounded-md pl-2 space-x-2 ${params.can ? 'border-green-700 dark:border-green-200' : 'border-red-700 dark:border-red-300'}`}>
+				<a 
+					href={line.href} 
+					class="text-yellow-700 dark:text-yellow-500"
+				>{line.text}</a>
+					<span class="bg-black text-white px-2 font-thin rounded-tr-md rounded-br-md">{params.priority}</span>
+				</span>)
+			: (<a 
+				href={line.href}
+				class="text-yellow-700 dark:text-yellow-500">{line.text}</a>);
 	}
 
-	const mapBlock = (block) => {
+	const mapBlock = (block, selectParams = {}) => {
 		return block.map((line) => {
 			if (typeof line !== 'string') {
-				return mapLink(line);
+				return mapLink(line, selectParams);
 			}
 			return line;
 		})
@@ -83,7 +95,7 @@ const Result = ({ matches: { child, parent } = {} }) => {
 								loading={loading}
 							/>}
 						<ul class="list-inside list-disc space-y-3 ml-7">
-							{get(result, 'child.Categories', []).map((block, index) => (<li key={index}>{mapBlock(block)}</li>))}
+							{get(result, 'child.Categories', []).map((block, index) => (<li key={index}>{mapBlock(block, includeParams)}</li>))}
 						</ul>
 					</section>
 					<section class="flex-grow border-l-4 p-2 border-yellow-500 dark:border-yellow-300">
@@ -156,7 +168,7 @@ const Result = ({ matches: { child, parent } = {} }) => {
 								loading={loading}
 							/>}
 						<ul class="list-inside list-disc space-y-3 ml-7">
-							{get(result, 'parent.ContentModel', []).map((block, index) => (<li key={index}>{mapBlock(block)}</li>))}
+							{get(result, 'parent.ContentModel', []).map((block, index) => (<li key={index}>{mapBlock(block, includeParams)}</li>))}
 						</ul>
 					</section>
 					<section class="flex-grow border-t dark:border-gray-400">
