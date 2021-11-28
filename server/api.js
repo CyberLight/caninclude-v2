@@ -5,6 +5,9 @@ const params = require('./params.json');
 const {CanincludeAnalyzer, rules} = require('caninclude-analyzer');
 const analyzer = new CanincludeAnalyzer(rules);
 
+const TYPE = 'Content-Type';
+const LENGTH = 'Content-Length';
+
 const resultsMap = {
 	true: 'can',
 	false: 'cant',
@@ -38,6 +41,13 @@ module.exports = polka()
 
 		result.child.params = Object.values(childParamList);
 		result.parent.params = Object.values(parentParamList);
-		result.can = resultsMap[analyzer.canInclude({ name: child, params: childParams }, { name: parent, params: parentParams })];
-		res.end(JSON.stringify({ ok: true, result }));
+		result.include = analyzer.canInclude({ name: child, params: childParams }, { name: parent, params: parentParams }, true);
+		result.include.can = resultsMap[result.include.can];
+
+		const data = JSON.stringify({ ok: true, result });
+		const headers = {};
+		headers[TYPE] = 'application/json';
+		headers[LENGTH] = data.length;
+		res.writeHead(200, headers);
+		res.end(data);
 	});
