@@ -46,7 +46,9 @@ const Result = ({ matches: { child, parent } = {} }) => {
 	const childParams = get(result, 'child.params', []);
 	const parentTag = get(result, 'parent.tag', `parent`);
 	const parentParams = get(result, 'parent.params', []);
-	const iconType = get(result, 'include.can', 'can');
+	const alternativeIconType = get(result, 'include.alternative.can');
+	const iconType = alternativeIconType || get(result, 'include.can', 'can');
+	const alternativeMessage = get(result, 'include.alternative.message', []);
 	const includeParams = get(result, 'include.params', []).reduce((o, [key, props]) => ({[key]: props, ...o}), {});
 
 	const mapLink = (line, selectParams) => {
@@ -76,6 +78,7 @@ const Result = ({ matches: { child, parent } = {} }) => {
 	return (
 		<main class="block min-h-content">
 			<h1 class="sr-only">Result of including a tag in a tag</h1>
+			{alternativeMessage.length > 0 && <div class="w-full text-sm p-2 bg-yellow-300 dark:bg-yellow-600">{alternativeMessage.join(' ')}</div>}
 			<div class="flex flex-col w-full h-full relative md:flex-row">
 				<input id="child" class="sr-only peer" type="radio" name="tabs" value="child" checked />
 				<input id="parent" class="sr-only" type="radio" name="tabs" value="parent" />
