@@ -78,7 +78,14 @@ const Result = ({ matches: { child, parent } = {} }) => {
 	return (
 		<main class="block min-h-content">
 			<h1 class="sr-only">Result of including a tag in a tag</h1>
-			{alternativeMessage.length > 0 && <div class="w-full text-sm p-2 bg-yellow-300 dark:bg-yellow-600">{alternativeMessage.join(' ')}</div>}
+			{alternativeMessage.length > 0 && 
+				(<div class="w-full relative">
+					<input type="checkbox" id="show_switcher" class="sr-only peer sm:hidden" />
+					<div class="w-full h-16 text-sm p-2 bg-yellow-300 dark:bg-yellow-600 overflow-hidden peer-checked:h-full sm:h-full">{alternativeMessage.join(' ')}</div>
+					<div class="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-b from-transparent to-gray-50 dark:to-gray-800 peer-checked:hidden sm:hidden" />
+					<label htmlFor="show_switcher" class="absolute ml-auto mr-auto bottom-1 text-xs px-2 left-0 right-0 w-24 rounded-xl text-center select-none cursor-pointer text-white dark:text-current bg-black bg-opacity-40 peer-checked:hidden sm:hidden">read more...</label>
+				</div>)
+			}
 			<div class="flex flex-col w-full h-full relative md:flex-row">
 				<input id="child" class="sr-only peer" type="radio" name="tabs" value="child" checked />
 				<input id="parent" class="sr-only" type="radio" name="tabs" value="parent" />
