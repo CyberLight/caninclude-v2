@@ -47,7 +47,7 @@ const Result = ({ matches: { child, parent } = {} }) => {
 	const parentTag = get(result, 'parent.tag', `parent`);
 	const parentParams = get(result, 'parent.params', []);
 	const alternativeIconType = get(result, 'include.alternative.can');
-	const iconType = alternativeIconType || get(result, 'include.can', 'can');
+	const iconType = alternativeIconType || get(result, 'include.can', '');
 	const alternativeMessage = get(result, 'include.alternative.message', []);
 	const includeParams = get(result, 'include.params', []).reduce((o, [key, props]) => ({[key]: props, ...o}), {});
 
