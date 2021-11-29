@@ -89,9 +89,9 @@ const Result = ({ matches: { child, parent } = {} }) => {
 			<div class="flex flex-col w-full h-full relative md:flex-row">
 				<input id="child" class="sr-only peer" type="radio" name="tabs" value="child" checked />
 				<input id="parent" class="sr-only" type="radio" name="tabs" value="parent" />
-				<div class="flex justify-between gap-2 order-2 border-b text-gray-200 border-b-red-800 peer-checked-fch:bg-red-800 peer-not-checked-lch:bg-red-800 md:hidden">
-					<label htmlFor="child" class="text-left p-4 rounded-tr-xl bg-gray-600 uppercase">{`<${childTag}/>`}</label>
-					<label htmlFor="parent" class="text-right p-4 rounded-tl-xl bg-gray-600 uppercase">{`<${parentTag}/>`}</label>
+				<div class="relative h-16 order-2 border-b border-b-red-800 peer-checked-fch:bg-red-400 dark:peer-checked-fch:bg-red-800 peer-not-checked-lch:bg-red-400 dark:peer-not-checked-lch:bg-red-800 md:hidden">
+					<label htmlFor="child" class="absolute bottom-0 max-w-1/2 overflow-ellipsis overflow-hidden block text-left p-4 rounded-tr-xl bg-gray-300 text-current dark:bg-gray-600 uppercase">{`<${childTag}/>`}</label>
+					<label htmlFor="parent" class="absolute bottom-0 max-w-1/2 overflow-ellipsis overflow-hidden right-0 block text-right p-4 rounded-tl-xl bg-gray-300 text-current dark:bg-gray-600 uppercase">{`<${parentTag}/>`}</label>
 				</div>
 				<section class="flex-col p-2 m-4 bg-gray-200 dark:bg-gray-800 rounded-lg order-3 hidden peer-checked:flex space-y-1 h-auto relative md:flex md:flex-grow md:order-2 md:w-1/3 md:pt-16">
 					<h2 class="capitalize top-0 left-0 md:bg-red-400 md:dark:bg-red-800 md:p-4 md:rounded-br-3xl md:rounded-tl-lg md:absolute">tag: <b class="uppercase">{`<${childTag}/>`}</b></h2>
