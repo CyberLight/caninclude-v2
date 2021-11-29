@@ -12,19 +12,19 @@ const DoubtIconType = 'doubt';
 
 const DefaultSectionsContent = () => (
 	<>
-		<li class="w-1/2 my-2 h-3 list-none bg-gray-300" />
-		<li class="w-1/3 my-2 h-3 list-none bg-gray-300" />
-		<li class="w-1/2 my-2 h-3 list-none bg-gray-300" />
+		<li class="w-1/2 my-2 h-3 list-none bg-gray-300 dark:bg-gray-600" />
+		<li class="w-1/3 my-2 h-3 list-none bg-gray-300 dark:bg-gray-600" />
+		<li class="w-1/2 my-2 h-3 list-none bg-gray-300 dark:bg-gray-600" />
 	</>
 );
 
 const DefaultTableRows = () => 
 	new Array(10).fill('').map((_, index) => (
 		<tr key={index} class="w-full odd:bg-gray-300 text-center dark:odd:bg-gray-900">
-			<td class="p-2"><div class="w-full h-2 bg-gray-300" /></td>
-			<td class="p-2"><div class="w-full h-2 bg-gray-300" /></td>
-			<td class="p-2"><div class="w-full h-2 bg-gray-300" /></td>
-			<td class="p-2"><div class="w-full h-2 bg-gray-300" /></td>
+			<td class="p-2"><div class="w-full h-2 bg-gray-300 dark:bg-gray-600" /></td>
+			<td class="p-2"><div class="w-full h-2 bg-gray-300 dark:bg-gray-600" /></td>
+			<td class="p-2"><div class="w-full h-2 bg-gray-300 dark:bg-gray-600" /></td>
+			<td class="p-2"><div class="w-full h-2 bg-gray-300 dark:bg-gray-600" /></td>
 		</tr>
 		)
 	);
@@ -176,12 +176,12 @@ const Result = ({ matches: { child, parent } = {} }) => {
 						{ iconType === CanIconType && <CanIcon /> }
 						{ iconType === CantIconType && <CantIcon /> }
 						{ iconType === DoubtIconType && <DoubtIcon /> }
-						{ !iconType && <div class="w-12 h-12 bg-gray-300 rounded-full mb-1" /> }
+						{ !iconType && <div class="w-12 h-12 bg-gray-300 dark:bg-gray-600 rounded-full mb-1" /> }
 					</div>
 					{ iconType === CanIconType && <span class="flex text-green-600 dark:text-green-400">Yes, you can!</span> }
 					{ iconType === CantIconType && <span class="flex text-red-600 dark:text-red-400">No, you can't!</span> }
 					{ iconType === DoubtIconType && <span class="flex text-yellow-600 dark:text-yellow-400">Doubt?!</span> }
-					{ !iconType && <span class="flex w-1/2 h-4 bg-gray-300" /> }
+					{ !iconType && <span class="flex w-1/2 h-4 bg-gray-300 dark:bg-gray-600" /> }
 				</section>					
 				<section class="flex flex-col p-2 m-4 bg-gray-200 dark:bg-gray-800 rounded-lg order-4 peer-checked:hidden h-auto space-y-1 relative md:peer-checked:flex md:flex md:order-4 md:flex-grow md:w-1/3 md:pt-16">
 					<h2 class="capitalize top-0 left-0 md:bg-red-400 md:dark:bg-red-800 md:p-4 md:rounded-br-3xl md:rounded-tl-lg md:absolute">tag: <b class="uppercase">{`<${parentTag}/>`}</b></h2>
