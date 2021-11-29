@@ -10,6 +10,25 @@ const CanIconType = 'can';
 const CantIconType = 'cant';
 const DoubtIconType = 'doubt';
 
+const DefaultSectionsContent = () => (
+	<>
+		<li class="w-1/2 my-2 h-3 list-none bg-gray-300" />
+		<li class="w-1/3 my-2 h-3 list-none bg-gray-300" />
+		<li class="w-1/2 my-2 h-3 list-none bg-gray-300" />
+	</>
+);
+
+const DefaultTableRows = () => 
+	new Array(10).fill('').map((_, index) => (
+		<tr key={index} class="w-full odd:bg-gray-300 text-center dark:odd:bg-gray-900">
+			<td class="p-2"><div class="w-full h-2 bg-gray-300" /></td>
+			<td class="p-2"><div class="w-full h-2 bg-gray-300" /></td>
+			<td class="p-2"><div class="w-full h-2 bg-gray-300" /></td>
+			<td class="p-2"><div class="w-full h-2 bg-gray-300" /></td>
+		</tr>
+		)
+	);
+
 const Result = ({ matches: { child, parent } = {} }) => {
 	const [result, setResult] = useState();
 	const [childSelectedParams, setChildSelectedParams] = useState([]);
@@ -47,9 +66,17 @@ const Result = ({ matches: { child, parent } = {} }) => {
 	const parentTag = get(result, 'parent.tag', `parent`);
 	const parentParams = get(result, 'parent.params', []);
 	const alternativeIconType = get(result, 'include.alternative.can');
-	const iconType = alternativeIconType || get(result, 'include.can', '');
+	const iconType = alternativeIconType || get(result, 'include.can');
 	const alternativeMessage = get(result, 'include.alternative.message', []);
 	const includeParams = get(result, 'include.params', []).reduce((o, [key, props]) => ({[key]: props, ...o}), {});
+	const childCategories = get(result, 'child.Categories', []);
+	const childContextUsed = get(result, 'child.ContextsInWhichThisElementCanBeUsed', []);
+	const childContentModel = get(result, 'child.ContentModel', []);
+	const parentCategories = get(result, 'parent.Categories', []);
+	const parentContextUsed = get(result, 'parent.ContextsInWhichThisElementCanBeUsed', []);
+	const parentContentModel = get(result, 'parent.ContentModel', []);
+	const parentSupport = Object.entries(get(result, 'parent.support', {}));
+	const childSupport = Object.entries(get(result, 'child.support', {}));
 
 	const mapLink = (line, selectParams) => {
 		const params = selectParams[line.hashText];
@@ -105,19 +132,19 @@ const Result = ({ matches: { child, parent } = {} }) => {
 								loading={loading}
 							/>}
 						<ul class="list-inside list-disc space-y-3 ml-7">
-							{get(result, 'child.Categories', []).map((block, index) => (<li key={index}>{mapBlock(block, includeParams)}</li>))}
+							{!childCategories.length ? <DefaultSectionsContent /> : childCategories.map((block, index) => (<li key={index}>{mapBlock(block, includeParams)}</li>))}
 						</ul>
 					</section>
 					<section class="flex-grow border-l-4 p-2 border-yellow-500 dark:border-yellow-300">
 						<h3 class="font-bold">Contexts in which this element can be used</h3>
 						<ul class="list-inside list-disc space-y-3 ml-7">
-							{get(result, 'child.ContextsInWhichThisElementCanBeUsed', []).map((block, index) => (<li key={index}>{mapBlock(block)}</li>))}
+							{!childContextUsed.length ? <DefaultSectionsContent /> : childContextUsed.map((block, index) => (<li key={index}>{mapBlock(block)}</li>))}
 						</ul>
 					</section>
 					<section class="flex-grow border-l-4 border-blue-400 p-2">
 						<h3 class="font-bold">Content model</h3>
 						<ul class="list-inside list-disc space-y-3 ml-7">
-							{get(result, 'child.ContentModel', []).map((block, index) => (<li key={index}>{mapBlock(block)}</li>))}
+							{!childContentModel.length ? <DefaultSectionsContent /> : childContentModel.map((block, index) => (<li key={index}>{mapBlock(block)}</li>))}
 						</ul>
 					</section>
 					<section class="flex-grow border-t dark:border-gray-400">
@@ -131,7 +158,7 @@ const Result = ({ matches: { child, parent } = {} }) => {
 								</tr>
 							</thead>
 							<tbody>
-								{Object.entries(get(result, 'child.support', {})).map(([browser, params], index) => {
+								{ !childSupport.length ? <DefaultTableRows /> : childSupport.map(([browser, params], index) => {
 									const row = [browser].concat(Object.values(params));
 									return <tr key={index} class="w-full odd:bg-gray-300 dark:odd:bg-gray-900">{
 										row.map((col, index) => 
@@ -145,27 +172,29 @@ const Result = ({ matches: { child, parent } = {} }) => {
 				</section>
 				<section class="flex flex-row w-full my-4 order-1 text-center justify-center items-center md:w-14 md:order-3 md:flex-grow md:h-auto md:justify-start md:flex-col">
 					<h2 class="sr-only">Can include?</h2>
-					<div class="flex flex-col h-16 w-20">
+					<div class="flex flex-col h-16 w-20 items-center">
 						{ iconType === CanIconType && <CanIcon /> }
 						{ iconType === CantIconType && <CantIcon /> }
 						{ iconType === DoubtIconType && <DoubtIcon /> }
+						{ !iconType && <div class="w-12 h-12 bg-gray-300 rounded-full mb-1" /> }
 					</div>
 					{ iconType === CanIconType && <span class="flex text-green-600 dark:text-green-400">Yes, you can!</span> }
 					{ iconType === CantIconType && <span class="flex text-red-600 dark:text-red-400">No, you can't!</span> }
 					{ iconType === DoubtIconType && <span class="flex text-yellow-600 dark:text-yellow-400">Doubt?!</span> }
+					{ !iconType && <span class="flex w-1/2 h-4 bg-gray-300" /> }
 				</section>					
 				<section class="flex flex-col p-2 m-4 bg-gray-200 dark:bg-gray-800 rounded-lg order-4 peer-checked:hidden h-auto space-y-1 relative md:peer-checked:flex md:flex md:order-4 md:flex-grow md:w-1/3 md:pt-16">
 					<h2 class="capitalize top-0 left-0 md:bg-red-400 md:dark:bg-red-800 md:p-4 md:rounded-br-3xl md:rounded-tl-lg md:absolute">tag: <b class="uppercase">{`<${parentTag}/>`}</b></h2>
 					<section class="flex-grow border-l-4 border-blue-400 p-2">
 						<h3 class="font-bold">Categories</h3>	
 						<ul class="list-inside list-disc space-y-3 ml-7">
-							{get(result, 'parent.Categories', []).map((block, index) => (<li key={index}>{mapBlock(block)}</li>))}
+							{!parentCategories.length ? <DefaultSectionsContent /> : parentCategories.map((block, index) => (<li key={index}>{mapBlock(block)}</li>))}
 						</ul>
 					</section>
 					<section class="flex-grow border-l-4 p-2 border-yellow-500 dark:border-yellow-300">
 						<h3 class="font-bold">Contexts in which this element can be used</h3>
 						<ul class="list-inside list-disc space-y-3 ml-7">
-							{get(result, 'parent.ContextsInWhichThisElementCanBeUsed', []).map((block, index) => (<li key={index}>{mapBlock(block)}</li>))}
+							{!parentContextUsed.length ? <DefaultSectionsContent /> : parentContextUsed.map((block, index) => (<li key={index}>{mapBlock(block)}</li>))}
 						</ul>
 					</section>
 					<section class="flex-grow border-l-4 border-blue-400 p-2 bg-gray-300 dark:bg-gray-700 relative">
@@ -178,7 +207,7 @@ const Result = ({ matches: { child, parent } = {} }) => {
 								loading={loading}
 							/>}
 						<ul class="list-inside list-disc space-y-3 ml-7">
-							{get(result, 'parent.ContentModel', []).map((block, index) => (<li key={index}>{mapBlock(block, includeParams)}</li>))}
+							{!parentContentModel.length ? <DefaultSectionsContent /> : parentContentModel.map((block, index) => (<li key={index}>{mapBlock(block, includeParams)}</li>))}
 						</ul>
 					</section>
 					<section class="flex-grow border-t dark:border-gray-400">
@@ -192,7 +221,7 @@ const Result = ({ matches: { child, parent } = {} }) => {
 								</tr>
 							</thead>
 							<tbody>
-								{Object.entries(get(result, 'parent.support', {})).map(([browser, params], index) => {
+								{ !parentSupport.length ? <DefaultTableRows /> : parentSupport.map(([browser, params], index) => {
 									const row = [browser].concat(Object.values(params));
 									return <tr key={index} class="w-full odd:bg-gray-300 dark:odd:bg-gray-900">{
 										row.map((col, index) => 
