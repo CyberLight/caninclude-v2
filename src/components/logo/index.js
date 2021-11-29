@@ -9,7 +9,7 @@ const Logo = () => {
                 <img 
                     width="112" 
                     height="112" 
-                    class="object-contain h-full w-full text-current bg-gray-200 dark:bg-gray-700 rounded-3xl" 
+                    class="object-contain h-full w-full text-current bg-gray-200 dark:bg-gray-700 rounded-xl sm:rounded-3xl" 
                     alt="caninclude logo" 
                     src="/assets/logo@1x.png"
                 />
