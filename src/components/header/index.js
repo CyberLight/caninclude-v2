@@ -18,7 +18,7 @@ const Header = () => {
 				<ul class="contents">
 					<li class="contents">
 						<Link 
-							activeClassName="bg-purple-400 bg-opacity-75 bg-no-repeat bg-full-h-3 bg-top bg-gradient-to-r from-purple-400 to-purple-400 order-first sm:order-none" 
+							activeClassName="bg-purple-400 bg-opacity-75 bg-no-repeat bg-full-h-3 bg-top bg-gradient-to-r from-purple-400 to-purple-400 order-first sm:order-none pointer-events-none" 
 							class="block px-4 py-2 h-14 leading-10 hover:bg-purple-300 hover:bg-opacity-25 capitalize" 
 							href="/"
 							onClick={onMenuItemClick}
@@ -32,7 +32,7 @@ const Header = () => {
 					<Match path="/caninclude">{({ matches }) => matches && (
 						<li class="contents">
 							<Link 
-								activeClassName="bg-purple-400 bg-opacity-75 bg-no-repeat bg-full-h-3 bg-top bg-gradient-to-r from-purple-400 to-purple-400 order-first sm:order-none" 
+								activeClassName="bg-purple-400 bg-opacity-75 bg-no-repeat bg-full-h-3 bg-top bg-gradient-to-r from-purple-400 to-purple-400 order-first sm:order-none pointer-events-none" 
 								class="block px-4 py-2 h-14 leading-10 hover:bg-purple-300 hover:bg-opacity-25 capitalize" 
 								href="/caninclude"
 								onClick={onMenuItemClick}>Result</Link>
@@ -40,7 +40,7 @@ const Header = () => {
 					)}</Match>
 					<li class="contents">
 						<Link 
-							activeClassName="bg-purple-400 bg-opacity-75 bg-no-repeat bg-full-h-3 bg-top bg-gradient-to-r from-purple-400 to-purple-400 order-first sm:order-none" 
+							activeClassName="bg-purple-400 bg-opacity-75 bg-no-repeat bg-full-h-3 bg-top bg-gradient-to-r from-purple-400 to-purple-400 order-first sm:order-none pointer-events-none" 
 							class="block px-4 py-2 h-14 leading-10 hover:bg-purple-300 hover:bg-opacity-25 capitalize" 
 							href="/about"
 							onClick={onMenuItemClick}>about</Link>
