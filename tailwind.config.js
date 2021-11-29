@@ -18,6 +18,9 @@ module.exports = {
       },
       minHeight: {
         content: 'calc(100vh - 3.5rem - 3.5rem)'
+      },
+      maxWidth: {
+        '1/2': '50%'
       }
     }
   },
