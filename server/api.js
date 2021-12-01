@@ -5,23 +5,43 @@ const params = require('./params.json');
 const {CanincludeAnalyzer, rules} = require('caninclude-analyzer');
 const analyzer = new CanincludeAnalyzer(rules);
 
-const TYPE = 'Content-Type';
-const LENGTH = 'Content-Length';
-
 const resultsMap = {
 	true: 'can',
 	false: 'cant',
 	unknown: 'doubt'
 }
 
+function makeHeadersFor(jsonData) {
+	const TYPE = 'Content-Type';
+	const LENGTH = 'Content-Length';
+	const headers = {};
+	headers[TYPE] = 'application/json';
+	headers[LENGTH] = jsonData.length;
+	return headers;
+}
+
 module.exports = polka()
 	.get('/caninclude', (req, res) => {
 		const { child, parent, childParams, parentParams } = req.query;
-        res.statusCode = 200;
-		const filteredTags = spec.filter(
-			(tag) => [child, parent].includes(tag.tag))
-			.reduce((o, tag) => ({[tag.tag]: tag, ...o}), {});
-		const result = { child: filteredTags[child], parent: filteredTags[parent] };
+		const requiredQueryParams = [child, parent];
+
+		if (!requiredQueryParams.every(Boolean)) {
+			const data = JSON.stringify({ ok: false, message: 'Please set "child" and "parent" parameters',  type: 'warning' });
+			res.writeHead(400, makeHeadersFor(data));
+			return res.end(data);
+		}
+
+		const filteredTags = spec
+			.filter((tag) => [child, parent].includes(tag.tag));
+			
+		if (filteredTags.length < 2) {
+			const data = JSON.stringify({ ok: false, message: 'Some values from parameters were not found',  type: 'warning' });
+			res.writeHead(400, makeHeadersFor(data));
+			return res.end(data);
+		}
+
+		const tags = filteredTags.reduce((o, tag) => ({[tag.tag]: tag, ...o}), {});	
+		const result = { child: tags[child], parent: tags[parent] };
 		result.child.params = params[child].params;
 		result.parent.params = params[parent].params;
 		const childParamList = result.child.Categories
@@ -54,9 +74,6 @@ module.exports = polka()
 			};
 		}
 		const data = JSON.stringify({ ok: true, result });
-		const headers = {};
-		headers[TYPE] = 'application/json';
-		headers[LENGTH] = data.length;
-		res.writeHead(200, headers);
+		res.writeHead(200, makeHeadersFor(data));
 		res.end(data);
 	});
