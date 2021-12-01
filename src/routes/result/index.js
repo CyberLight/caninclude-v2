@@ -12,19 +12,19 @@ const DoubtIconType = 'doubt';
 
 const DefaultSectionsContent = () => (
 	<>
-		<li class="w-1/2 my-2 h-3 list-none bg-gray-300 dark:bg-gray-600" />
-		<li class="w-1/3 my-2 h-3 list-none bg-gray-300 dark:bg-gray-600" />
-		<li class="w-1/2 my-2 h-3 list-none bg-gray-300 dark:bg-gray-600" />
+		<li class="w-1/2 my-2 h-3 list-none bg-gray-400 dark:bg-gray-600" />
+		<li class="w-1/3 my-2 h-3 list-none bg-gray-400 dark:bg-gray-600" />
+		<li class="w-1/2 my-2 h-3 list-none bg-gray-400 dark:bg-gray-600" />
 	</>
 );
 
 const DefaultTableRows = () => 
 	new Array(10).fill('').map((_, index) => (
 		<tr key={index} class="w-full odd:bg-gray-300 text-center dark:odd:bg-gray-900">
-			<td class="p-2"><div class="w-full h-2 bg-gray-300 dark:bg-gray-600" /></td>
-			<td class="p-2"><div class="w-full h-2 bg-gray-300 dark:bg-gray-600" /></td>
-			<td class="p-2"><div class="w-full h-2 bg-gray-300 dark:bg-gray-600" /></td>
-			<td class="p-2"><div class="w-full h-2 bg-gray-300 dark:bg-gray-600" /></td>
+			<td class="p-2"><div class="w-full h-2 bg-gray-400 dark:bg-gray-600" /></td>
+			<td class="p-2"><div class="w-full h-2 bg-gray-400 dark:bg-gray-600" /></td>
+			<td class="p-2"><div class="w-full h-2 bg-gray-400 dark:bg-gray-600" /></td>
+			<td class="p-2"><div class="w-full h-2 bg-gray-400 dark:bg-gray-600" /></td>
 		</tr>
 		)
 	);
@@ -35,7 +35,7 @@ const Result = ({ matches: { child, parent } = {} }) => {
 	const [parentSelectedParams, setParentSelectedParams] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
-
+	
 	const childSelectParamHandler = (e) => {
 		if (e.target.checked) {
 			setChildSelectedParams([...childSelectedParams, `is:${e.target.name}`]);
@@ -54,7 +54,17 @@ const Result = ({ matches: { child, parent } = {} }) => {
 
 	useEffect(() => {
 		const params = new URLSearchParams({ child, parent, childParams: childSelectedParams, parentParams: parentSelectedParams });
+		async function checkResponse(res) {
+			if (!res.ok) {
+				let err = new Error(`HTTP Error: ${res.status}`);
+				err.json = await res.json();
+				err.status = res.status	
+				throw err
+			}
+			return res;
+		}
 		fetch(`/api/caninclude?${params}`)
+			.then((r) => checkResponse(r))
 			.then((r) => r.json())
 			.then((json) => setResult(json.result))
 			.catch((e) => setError(e))
@@ -77,6 +87,8 @@ const Result = ({ matches: { child, parent } = {} }) => {
 	const parentContentModel = get(result, 'parent.ContentModel', []);
 	const parentSupport = Object.entries(get(result, 'parent.support', {}));
 	const childSupport = Object.entries(get(result, 'child.support', {}));
+	const jsonError = get(error, 'json');
+	const hasFatalError = error && !jsonError;
 
 	const mapLink = (line, selectParams) => {
 		const params = selectParams[line.hashText];
@@ -113,6 +125,16 @@ const Result = ({ matches: { child, parent } = {} }) => {
 					<label htmlFor="show_switcher" class="absolute ml-auto mr-auto bottom-1 text-xs px-2 left-0 right-0 w-24 rounded-xl text-center select-none cursor-pointer text-white dark:text-current bg-black bg-opacity-40 peer-checked:hidden sm:hidden">read more...</label>
 				</div>)
 			}
+			{jsonError && (
+				<div class={`w-full p-2 ${jsonError.type === 'warning' ? 'bg-yellow-300 dark:bg-yellow-600' : 'bg-blue-300 dark:bg-blue-600'}`}>
+					{jsonError.message}<span class="px-2">|</span><a href="/" class="underline font-bold">Go to main page</a>
+				</div>
+			)}
+			{hasFatalError && (
+				<div class="w-full p-2 bg-red-500 dark:bg-red-600">
+					<b>:-(</b> Something went wrong... Try again later!<span class="px-2">|</span><a href="/" class="underline font-bold">Go to main page</a>
+				</div>
+			)}
 			<div class="flex flex-col w-full h-full relative md:flex-row">
 				<input id="child" class="sr-only peer" type="radio" name="tabs" value="child" checked />
 				<input id="parent" class="sr-only" type="radio" name="tabs" value="parent" />
@@ -176,12 +198,12 @@ const Result = ({ matches: { child, parent } = {} }) => {
 						{ iconType === CanIconType && <CanIcon /> }
 						{ iconType === CantIconType && <CantIcon /> }
 						{ iconType === DoubtIconType && <DoubtIcon /> }
-						{ !iconType && <div class="w-12 h-12 bg-gray-300 dark:bg-gray-600 rounded-full mb-1" /> }
+						{ !iconType && <div class="w-12 h-12 bg-gray-400 dark:bg-gray-600 rounded-full mb-1" /> }
 					</div>
 					{ iconType === CanIconType && <span class="flex text-green-600 dark:text-green-400">Yes, you can!</span> }
 					{ iconType === CantIconType && <span class="flex text-red-600 dark:text-red-400">No, you can't!</span> }
 					{ iconType === DoubtIconType && <span class="flex text-yellow-600 dark:text-yellow-400">Doubt?!</span> }
-					{ !iconType && <span class="flex w-1/2 h-4 bg-gray-300 dark:bg-gray-600" /> }
+					{ !iconType && <span class="flex w-1/2 h-4 bg-gray-400 dark:bg-gray-600" /> }
 				</section>					
 				<section class="flex flex-col p-2 m-4 bg-gray-200 dark:bg-gray-800 rounded-lg order-4 peer-checked:hidden h-auto space-y-1 relative md:peer-checked:flex md:flex md:order-4 md:flex-grow md:w-1/3 md:pt-16">
 					<h2 class="capitalize top-0 left-0 md:bg-red-400 md:dark:bg-red-800 md:p-4 md:rounded-br-3xl md:rounded-tl-lg md:absolute">tag: <b class="uppercase">{`<${parentTag}/>`}</b></h2>
