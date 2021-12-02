@@ -34,11 +34,13 @@ const Search = () => {
                     onInput={onChildInput}
                     value={formData.child} />
             </p>
-            <p class="h-10 md:h-full">
-                <label class="block px-2 w-14 h-full border border-purple-500 dark:border-gray-500 rounded-md focus-within:border-blue-400 sm:h-full">
-                    <input type="checkbox" name="swap" class="peer sr-only" checked={swap} onClick={swapClick} />
+            <p class="h-10 md:h-full focus-within:border focus-within:rounded-md focus-within:border-blue-400">
+                <input type="checkbox" id="swap" name="swap" class="peer sr-only" checked={swap} onClick={swapClick} />
+                <label 
+                    class="block px-2 w-14 h-full border border-purple-500 dark:border-gray-500 rounded-md focus-within:border-blue-400 peer-checked:bg-purple-600 peer-checked:text-white dark:peer-checked:bg-white dark:peer-checked:text-black sm:h-full" 
+                    htmlFor="swap">
                     <svg 
-                        class="fill-current h-full peer-checked:text-pink-400 mx-auto" 
+                        class="fill-current h-full mx-auto" 
                         width="28px" 
                         height="28px" 
                         viewBox="0 0 24 24" 
