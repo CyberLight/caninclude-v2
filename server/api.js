@@ -34,7 +34,7 @@ module.exports = {
 			return res.end(data);
 		}
 		const childTagFormatted = child.toLowerCase();
-		const parentTagFormatted = child.toLowerCase();
+		const parentTagFormatted = parent.toLowerCase();
 		const targetTags = [childTagFormatted, parentTagFormatted];
 
 		const filteredTags = spec
