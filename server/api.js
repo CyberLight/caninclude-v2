@@ -33,20 +33,23 @@ module.exports = {
 			res.writeHead(400, makeHeadersFor(data));
 			return res.end(data);
 		}
+		const childTagFormatted = child.toLowerCase();
+		const parentTagFormatted = child.toLowerCase();
+		const targetTags = [childTagFormatted, parentTagFormatted];
 
 		const filteredTags = spec
-			.filter((tag) => [child, parent].includes(tag.tag));
+			.filter((tag) => targetTags.includes(tag.tag));
 			
-		if (filteredTags.length < 2 && child !== parent) {
+		if (filteredTags.length < 2 && childTagFormatted !== parentTagFormatted) {
 			const data = JSON.stringify({ ok: false, message: 'Some values from parameters were not found',  type: 'warning' });
 			res.writeHead(400, makeHeadersFor(data));
 			return res.end(data);
 		}
 
 		const tags = filteredTags.reduce((o, tag) => ({[tag.tag]: tag, ...o}), {});	
-		const result = { child: copyObject(tags[child]), parent: copyObject(tags[parent]) };
-		result.child.params = copyObject(params[child].params);
-		result.parent.params = copyObject(params[parent].params);
+		const result = { child: copyObject(tags[childTagFormatted]), parent: copyObject(tags[parentTagFormatted]) };
+		result.child.params = copyObject(params[childTagFormatted].params);
+		result.parent.params = copyObject(params[parentTagFormatted].params);
 		const childParamsList = get(result, 'child.params.Categories', []);
 		const parentParamsList = get(result, 'parent.params.ContentModel', []);
 
@@ -63,8 +66,8 @@ module.exports = {
 		result.parent.params = Object.values(parentParamList);
 
 		result.include = analyzer.canInclude(
-			{ name: child, params: childParams }, 
-			{ name: parent, params: parentParams }, 
+			{ name: childTagFormatted, params: childParams }, 
+			{ name: parentTagFormatted, params: parentParams }, 
 			true
 		);
 
