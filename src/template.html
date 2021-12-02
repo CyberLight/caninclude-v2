@@ -7,6 +7,13 @@
 		<meta name="mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png">
+		<script>
+			if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+				document.documentElement.classList.add('dark')
+			} else {
+				document.documentElement.classList.remove('dark')
+			}
+		</script>
 		<% preact.headEnd %>
 	</head>
 	<body class="bg-gray-50 dark:bg-gray-900 text-black dark:text-gray-200 min-h-screen">
