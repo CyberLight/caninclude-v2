@@ -2,6 +2,7 @@ import { h } from 'preact';
 import Match, { Link } from 'preact-router/match';
 import { useState, useEffect } from 'preact/hooks';
 import Hamburger from '../hamburger';
+import ThemeSwitcher from '../themeswitcher';
 
 const Header = () => {
 	const [menuClosed, setMenuClosed] = useState(false);
@@ -14,7 +15,7 @@ const Header = () => {
 
 	return (
 		<header className="flex flex-col sm:flex-row bg-purple-600 text-gray-50 min-h-14 items-center justify-center">
-			<nav class={`flex flex-col text-center w-full sm:flex-row sm:w-auto relative ${ menuClosed && 'h-14 overflow-hidden' || 'h-screen'}`}>
+			<nav class={`flex flex-col text-center w-full sm:flex-row sm:w-auto relative ${ menuClosed && 'h-14 overflow-hidden' || 'h-screen sm:h-14'}`}>
 				<ul class="contents">
 					<li class="contents">
 						<Link 
@@ -46,6 +47,7 @@ const Header = () => {
 							href="https://github.com/CyberLight/caninclude-v2" onClick={onMenuItemClick}>Github</a>
 					</li>
 				</ul>
+				<ThemeSwitcher />
 				<Hamburger onClick={onMenuBtnClick} closed={menuClosed} />
 			</nav>
 			<div class={`flex flex-wrap font-thin justify-self-end px-4 py-2 ${ menuClosed && 'hidden sm:block' }`}>v 2.0</div>
