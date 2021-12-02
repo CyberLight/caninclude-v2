@@ -1,6 +1,8 @@
 import { h } from 'preact';
 import { useState, useEffect } from 'preact/hooks';
 import get from 'lodash/get';
+import { route } from 'preact-router';
+
 import CanIcon from '../../components/icons/can';
 import CantIcon from '../../components/icons/cant';
 import DoubtIcon from '../../components/icons/doubt';
@@ -71,6 +73,17 @@ const Result = ({ matches: { child, parent } = {} }) => {
 			.finally(() => setLoading(false));
 	}, [child, parent, childSelectedParams, parentSelectedParams]);
 
+	const redirectToMainPage = (e) => {
+		if (e.stopImmediatePropagation) {
+			e.stopImmediatePropagation();
+		}
+		if (e.stopPropagation) {
+			e.stopPropagation();
+		}
+		e.preventDefault();
+		route('/');
+	}
+
 	const childTag = get(result, 'child.tag', 'child');
 	const childParams = get(result, 'child.params', []);
 	const parentTag = get(result, 'parent.tag', `parent`);
@@ -127,12 +140,12 @@ const Result = ({ matches: { child, parent } = {} }) => {
 			}
 			{jsonError && (
 				<div class={`w-full p-2 ${jsonError.type === 'warning' ? 'bg-yellow-300 dark:bg-yellow-600' : 'bg-blue-300 dark:bg-blue-600'}`}>
-					{jsonError.message}<span class="px-2">|</span><a href="/" class="underline font-bold">Go to main page</a>
+					{jsonError.message}<span class="px-2">|</span><a href="/" onClick={redirectToMainPage} class="underline font-bold">Go to main page</a>
 				</div>
 			)}
 			{hasFatalError && (
 				<div class="w-full p-2 bg-red-500 dark:bg-red-600">
-					<b>:-(</b> Something went wrong... Try again later!<span class="px-2">|</span><a href="/" class="underline font-bold">Go to main page</a>
+					<b>:-(</b> Something went wrong... Try again later!<span class="px-2">|</span><a href="/" onClick={redirectToMainPage} class="underline font-bold">Go to main page</a>
 				</div>
 			)}
 			<div class="flex flex-col w-full h-full relative md:flex-row">
