@@ -29,14 +29,16 @@ const Search = () => {
                     name="child" 
                     type="text" 
                     placeholder="Child tag name"
+                    autocomplete="off"
+                    autofocus
                     onInput={onChildInput}
                     value={formData.child} />
             </p>
-            <p>
-                <label class="h-full">
+            <p class="h-10 md:h-full">
+                <label class="block px-2 w-14 h-full border border-purple-500 dark:border-gray-500 rounded-md focus-within:border-blue-400 sm:h-full">
                     <input type="checkbox" name="swap" class="peer sr-only" checked={swap} onClick={swapClick} />
                     <svg 
-                        class="fill-current h-full peer-checked:text-pink-400 m-5 md:m-auto" 
+                        class="fill-current h-full peer-checked:text-pink-400 mx-auto" 
                         width="28px" 
                         height="28px" 
                         viewBox="0 0 24 24" 
@@ -59,11 +61,12 @@ const Search = () => {
                     name="parent" 
                     type="text" 
                     placeholder="Parent tag name"
+                    autocomplete="off"
                     onInput={onParentInput}
                     value={formData.parent} />
             </p>
             <p class="flex items-center h-10">
-                <button class="bg-purple-600 text-gray-50 dark:text-current px-4 rounded-lg h-full mx-2">Go</button>
+                <button class="bg-purple-600 text-gray-50 dark:text-current px-2 w-14 rounded-lg h-full">Go</button>
             </p>
             </form>
         </div>
