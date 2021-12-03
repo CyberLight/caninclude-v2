@@ -9,7 +9,7 @@ import Result from '../routes/result';
 
 const App = () => {
 	return (
-		<div id="app" class="flex flex-col min-h-full relative pb-14">
+		<div id="app" class="flex flex-col min-h-screen relative pb-14">
 			<Header />
 			<Router>
 				<Main path="/" />
