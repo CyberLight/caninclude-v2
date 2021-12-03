@@ -12,6 +12,10 @@
     "test": "jest",
     "api:dev": "PORT=8081 node server"
   },
+  "author": "Aleksandr Vishniakov aka CyberLight",
+  "engines": {
+    "node": "16.x"
+  },
   "eslintConfig": {
     "extends": "preact",
     "ignorePatterns": [
