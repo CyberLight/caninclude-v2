@@ -8,28 +8,13 @@ import CantIcon from '../../components/icons/cant';
 import DoubtIcon from '../../components/icons/doubt';
 import TagSettings from '../../components/tagsettings';
 
+import DefaultSectionsContent from '../../components/default/sectioncontent';
+import DefaultTableRows from '../../components/default/tablerows';
+
 const CanIconType = 'can';
 const CantIconType = 'cant';
 const DoubtIconType = 'doubt';
 
-const DefaultSectionsContent = () => (
-	<>
-		<li class="w-1/2 my-2 h-3 list-none bg-gray-400 dark:bg-gray-600" />
-		<li class="w-1/3 my-2 h-3 list-none bg-gray-400 dark:bg-gray-600" />
-		<li class="w-1/2 my-2 h-3 list-none bg-gray-400 dark:bg-gray-600" />
-	</>
-);
-
-const DefaultTableRows = () => 
-	new Array(10).fill('').map((_, index) => (
-		<tr key={index} class="w-full odd:bg-gray-300 text-center dark:odd:bg-gray-900">
-			<td class="p-2"><div class="w-full h-2 bg-gray-400 dark:bg-gray-600" /></td>
-			<td class="p-2"><div class="w-full h-2 bg-gray-400 dark:bg-gray-600" /></td>
-			<td class="p-2"><div class="w-full h-2 bg-gray-400 dark:bg-gray-600" /></td>
-			<td class="p-2"><div class="w-full h-2 bg-gray-400 dark:bg-gray-600" /></td>
-		</tr>
-		)
-	);
 
 const Result = ({ matches: { child, parent } = {} }) => {
 	const [result, setResult] = useState();
