@@ -22,5 +22,8 @@ module.exports = (config, env, helpers, /* options */) => {
       }
     ];
   }
+  if (env.isProd) {
+    config.devtool = false; // disable sourcemaps
+  }
   return config;
 };
