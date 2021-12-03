@@ -130,6 +130,11 @@ const Result = ({ matches: { child, parent } = {} }) => {
 	return (
 		<main class="block min-h-content">
 			<h1 class="sr-only">Result of including a tag in a tag</h1>
+			<noscript>
+				<div class="w-full p-2 bg-red-500 dark:bg-red-600 text-center">
+					Please enable JS in your browser for a comfortable use of this site
+				</div>
+			</noscript>
 			{alternativeMessage.length > 0 && 
 				(<div class="w-full relative">
 					<input type="checkbox" id="show_switcher" class="sr-only peer sm:hidden" />
