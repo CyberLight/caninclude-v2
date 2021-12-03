@@ -4,13 +4,26 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "start": "NODE_ENV=production node server",
+    "start": "pm2 start ecosystem.config.js --env production --no-daemon",
     "build": "preact build",
     "serve": "sirv build --port 8080 --cors --single",
     "dev": "concurrently --kill-others \"preact watch\" \"npm run api:dev\"",
     "lint": "eslint src",
     "test": "jest",
-    "api:dev": "PORT=8081 nodemon --watch server server/index.js"
+    "api:dev": "PORT=8081 nodemon --watch server server/index.js",
+    "pm2:gen:config": "pm2 ecosystem",
+    "pm2:stop": "pm2 stop ecosystem.config.js",
+    "pm2:restart": "pm2 restart ecosystem.config.js --env production",
+    "pm2:reload": "pm2 reload ecosystem.config.js --env production",
+    "pm2:mon": "pm2 monit",
+    "pm2:kill": "pm2 kill",
+    "pm2:logs": "pm2 logs webapp --lines 100",
+    "pm2:log:rotate": "pm2 install pm2-logrotate",
+    "pm2:flush": "pm2 flush",
+    "glitch:pack": "node ./utils/archive.js",
+    "glitch:unpack": "unzip -o glitch_release_*.zip -d . && rm glitch_release_*.zip && refresh",
+    "glitch:apply": "refresh",
+    "glitch:wget": "node ./utils/wget"
   },
   "author": "Aleksandr Vishniakov aka CyberLight",
   "engines": {
@@ -24,6 +37,7 @@
     "root": true
   },
   "devDependencies": {
+    "archiver": "^5.3.0",
     "enzyme": "^3.10.0",
     "enzyme-adapter-preact-pure": "^2.0.0",
     "eslint": "^8.2.0",
@@ -37,6 +51,7 @@
   "dependencies": {
     "caninclude-analyzer": "github:CyberLight/caninclude-analyzer#v1.0.5",
     "lodash": "^4.17.21",
+    "pm2": "^5.1.2",
     "polka": "^0.5.2",
     "preact": "^10.6.1",
     "preact-render-to-string": "^5.1.19",
