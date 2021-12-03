@@ -4,7 +4,7 @@ import MoonIcon from '../icons/moon';
 import SunIcon from '../icons/sun';
 import ContrastIcon from '../icons/contrast';
 
-const ThemeSwitcher = () => {
+const ThemeSwitcher = (props) => {
     const [theme, setTheme] = useState('auto');
 
     useEffect(() => {
@@ -38,7 +38,7 @@ const ThemeSwitcher = () => {
     }
 
     return (
-        <ul class="flex border rounded-md max-w-max mx-auto mt-auto mb-4 md:mx-2 md:h-1/2 md:max-h-7 md:my-auto">
+        <ul class={`flex border rounded-md max-w-max mx-auto mt-auto mb-4 md:mx-2 md:h-1/2 md:max-h-7 md:my-auto ${props.class}`}>
             <li class="h-full">  
                 <input type="radio" id="light_theme" name="theme" class="sr-only peer" value="light" onClick={onClickTheme} checked={theme === 'light'} />
                 <label class="w-full h-full peer-checked:bg-white peer-checked:text-black inline-block px-2 rounded-tl-md rounded-bl-md" htmlFor="light_theme"><SunIcon class="w-4 h-4 inline-block mr-2 my-auto" />Light</label>
