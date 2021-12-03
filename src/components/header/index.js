@@ -3,6 +3,7 @@ import Match, { Link } from 'preact-router/match';
 import { useState, useEffect } from 'preact/hooks';
 import Hamburger from '../hamburger';
 import ThemeSwitcher from '../themeswitcher';
+import LeftArrowIcon from '../icons/leftarrow';
 
 const Header = () => {
 	const [menuClosed, setMenuClosed] = useState(undefined);
@@ -50,6 +51,13 @@ const Header = () => {
 				</ul>
 				<ThemeSwitcher class={`${ menuClosed ? '' : 'justify-self-end'}`} />
 				<Hamburger onClick={onMenuBtnClick} closed={menuClosed} />
+				<Match path="/caninclude">{
+					({ matches }) => matches && (
+						<Link href="/" class="absolute left-0 top-0 p-4 w-14 h-14 sm:hidden" onClick={onMenuItemClick}>
+							<LeftArrowIcon />
+						</Link>
+					)}
+				</Match>
 			</nav>
 			<div class={`flex flex-wrap font-thin justify-self-end px-4 py-2 ${ menuClosed && 'hidden sm:block' }`}>v 2.0</div>
 		</header>
