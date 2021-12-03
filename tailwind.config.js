@@ -17,7 +17,8 @@ module.exports = {
         'inset-thin': 'inset 0 2px 5px rgba(0,0,0,.2)'
       },
       minHeight: {
-        content: 'calc(100vh - 3.5rem - 3.5rem)'
+        content: 'calc(100vh - 3.5rem - 3.5rem)',
+        screen: '100vh'
       },
       maxWidth: {
         '1/2': '50%'
