@@ -18,6 +18,19 @@ function onError(err, req, res) {
 
 let app = polka({ onError });
 	app.use((req, res, next) => {
+		if (!req.headers['X-Forwarded-Proto'] || req.headers['X-Forwarded-Proto'].indexOf('https') !== -1) {
+			return next();
+		}
+		const url = `https://${req.hostname}${req.url}`;
+		let str = `Redirecting to ${url}`;
+		res.writeHead(302, {
+			Location: url,
+			'Content-Type': 'text/plain',
+			'Content-Length': str.length
+		});
+		res.end(str);
+	})
+	app.use((req, res, next) => {
 		try {
 			if (req.path === '/api/caninclude' && req.method === 'GET') {
 				return caninclude(req, res);
