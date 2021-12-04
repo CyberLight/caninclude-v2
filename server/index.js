@@ -1,4 +1,5 @@
 const polka = require('polka');
+const {makeHeadersFor} = require('./utils');
 const { PORT=8080 } = process.env;
 
 const isProd = process.env.NODE_ENV === 'production';
@@ -8,12 +9,23 @@ const staticMiddleware = require('sirv')('build', {
 });
 const { caninclude } = require('./api.js');
 
-let app = polka();
+function onError(err, req, res) {
+  console.error(`> ERROR: ${req.method}(${req.url}) ~>`, err);
+  const data = JSON.stringify({ ok: false, message: 'Oops! Something went wrong!', type: 'warning' });
+  res.writeHead(err.code || 500, makeHeadersFor(data));
+  res.end(data);
+}
+
+let app = polka({ onError });
 	app.use((req, res, next) => {
-		if (req.path === '/api/caninclude' && req.method === 'GET') {
-			return caninclude(req, res);
+		try {
+			if (req.path === '/api/caninclude' && req.method === 'GET') {
+				return caninclude(req, res);
+			}
+		} catch (e) {
+			return next(e);
 		}
-		next();
+		return next();
 	})
 	if (isProd) {
 		app.use(staticMiddleware);
