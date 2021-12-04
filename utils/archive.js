@@ -39,5 +39,6 @@ archive.directory('server/', 'server');
 archive.file('package-lock.json', { name: 'package-lock.json' });
 archive.file('package.json', { name: 'package.json' });
 archive.file('ecosystem.config.js', { name: 'ecosystem.config.js' });
+archive.file('utils/wget.js', { name: 'utils/wget.js' });
 
 archive.finalize();
