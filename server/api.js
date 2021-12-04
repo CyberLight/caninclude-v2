@@ -2,25 +2,13 @@ const get = require('lodash/get');
 const spec = require('./spec.json');
 const params = require('./params.json');
 const {CanincludeAnalyzer, rules} = require('caninclude-analyzer');
+const {makeHeadersFor, copyObject} = require('./utils');
 const analyzer = new CanincludeAnalyzer(rules);
 
 const resultsMap = {
 	true: 'can',
 	false: 'cant',
 	unknown: 'doubt'
-}
-
-function makeHeadersFor(jsonData) {
-	const TYPE = 'Content-Type';
-	const LENGTH = 'Content-Length';
-	const headers = {};
-	headers[TYPE] = 'application/json';
-	headers[LENGTH] = jsonData.length;
-	return headers;
-}
-
-function copyObject(o) {
-	return {...o};
 }
 
 module.exports = {
@@ -33,6 +21,7 @@ module.exports = {
 			res.writeHead(400, makeHeadersFor(data));
 			return res.end(data);
 		}
+
 		const childTagFormatted = child.toLowerCase();
 		const parentTagFormatted = parent.toLowerCase();
 		const targetTags = [childTagFormatted, parentTagFormatted];
