@@ -18,12 +18,12 @@ function onError(err, req, res) {
 
 let app = polka({ onError });
 	app.use((req, res, next) => {
-		if (!req.headers['X-Forwarded-Proto'] || req.headers['X-Forwarded-Proto'].indexOf('https') !== -1) {
+		if (!req.headers['x-forwarded-proto'] || req.headers['x-forwarded-proto'].indexOf('https') !== -1) {
 			return next();
 		}
-		const url = `https://${req.hostname}${req.url}`;
+		const url = `https://${req.headers.host}${req.url}`;
 		let str = `Redirecting to ${url}`;
-		res.writeHead(302, {
+		res.writeHead(301, {
 			Location: url,
 			'Content-Type': 'text/plain',
 			'Content-Length': str.length
