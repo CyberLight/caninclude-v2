@@ -4,3 +4,5 @@ node_modules
 size-plugin.json
 server/spec.json
 server/params.json
+
+.DS_Store
