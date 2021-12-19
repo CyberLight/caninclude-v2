@@ -17,7 +17,7 @@ const Header = () => {
 
 	return (
 		<header className={`flex flex-col bg-purple-600 text-gray-50 items-center justify-start sm:flex-row sm:justify-center sm:relative sm:h-14 ${ isMenuInitialized && menuClosed ? '' : 'h-screen fixed top-0 left-0 w-full z-10' }`}>
-			<nav class={`flex flex-col text-center w-full sm:flex-row sm:w-auto sm:overflow-auto ${ menuClosed ? 'h-14 overflow-hidden' : 'h-full' }`}>
+			<nav class={`flex flex-col text-center w-full sm:flex-row sm:w-auto ${ menuClosed ? 'h-14 overflow-hidden' : 'h-full' }`}>
 				<ul class="contents">
 					<li class="contents">
 						<Link 

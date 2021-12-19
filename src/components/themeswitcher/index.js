@@ -38,18 +38,24 @@ const ThemeSwitcher = (props) => {
     }
 
     return (
-        <ul class={`flex border rounded-md max-w-max mx-auto mt-auto mb-4 md:mx-2 md:h-1/2 md:max-h-7 md:my-auto ${props.class}`}>
-            <li class="h-full">  
+        <ul class={`flex border rounded-md max-w-max mr-auto ml-auto mt-auto sm:mx-2 sm:h-1/2 sm:m-auto md:max-h-7 md:my-auto ${props.class}`}>
+            <li class="h-full overflow-hidden">  
                 <input type="radio" id="light_theme" name="theme" class="sr-only peer" value="light" onClick={onClickTheme} checked={theme === 'light'} />
-                <label class="w-full h-full peer-checked:bg-white peer-checked:text-black inline-block px-2 rounded-tl-md rounded-bl-md" htmlFor="light_theme"><SunIcon class="w-4 h-4 inline-block mr-2 my-auto" />Light</label>
+                <div class="flex peer-checked:bg-white peer-checked:text-black rounded-tl-md rounded-bl-md h-full">
+                    <label class="flex h-full px-2" htmlFor="light_theme"><SunIcon class="w-4 h-4 inline-block m-2 my-auto" />Light</label>
+                </div>
             </li>
-            <li class="h-full">
+            <li class="h-full overflow-hidden">
                 <input type="radio" id="dark_theme" name="theme" class="sr-only peer" value="dark" onClick={onClickTheme} checked={theme === 'dark'} />
-                <label class="w-full h-full peer-checked:bg-white peer-checked:text-black border-l border-r inline-block px-2" htmlFor="dark_theme"><MoonIcon class="w-4 h-4 inline-block mr-2 my-auto" />Dark</label>
+                <div class="flex peer-checked:bg-white peer-checked:text-black border-l border-r h-full">
+                    <label class="flex h-full px-2" htmlFor="dark_theme"><MoonIcon class="w-4 h-4 inline-block m-2 my-auto" />Dark</label>
+                </div>
             </li>
-            <li class="h-full">
+            <li class="h-full overflow-hidden">
                 <input type="radio" id="auto_theme" name="theme" class="sr-only peer" value="auto" onClick={onClickTheme} checked={theme === 'auto'} />
-                <label class="w-full h-full peer-checked:bg-white peer-checked:text-black inline-block px-2 rounded-tr-md rounded-br-md" htmlFor="auto_theme"><ContrastIcon class="w-4 h-4 inline-block mr-2 my-auto" />Auto</label>
+                <div class="flex peer-checked:bg-white peer-checked:text-black rounded-tr-md rounded-br-md h-full">
+                    <label class="flex h-full px-2" htmlFor="auto_theme"><ContrastIcon class="w-4 h-4 inline-block m-2 my-auto" />Auto</label>
+                </div>
             </li>
         </ul>
     );
