@@ -14,6 +14,7 @@ const App = () => {
 			<Router>
 				<Main path="/" />
 				<Result path="/caninclude" />
+				<Result path="/can/include" />
 			</Router>
 			<Footer />
 		</div>

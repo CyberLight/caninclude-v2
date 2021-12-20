@@ -3,7 +3,8 @@ import Match, { Link } from 'preact-router/match';
 import { useState, useEffect } from 'preact/hooks';
 import Hamburger from '../hamburger';
 import ThemeSwitcher from '../themeswitcher';
-import LeftArrowIcon from '../icons/leftarrow';
+import ResultMenuItem from '../resultmenuitem';
+import BackLink from "../backlink";
 
 const Header = () => {
 	const [menuClosed, setMenuClosed] = useState(undefined);
@@ -33,13 +34,10 @@ const Header = () => {
 						</Link>
 					</li>
 					<Match path="/caninclude">{({ matches }) => matches && (
-						<li class="contents">
-							<Link 
-								activeClassName="bg-purple-400 bg-opacity-75 bg-no-repeat bg-full-h-3 bg-top bg-gradient-to-r from-purple-400 to-purple-400 order-first sm:order-none pointer-events-none" 
-								class="block px-4 py-2 h-14 leading-10 hover:bg-purple-300 hover:bg-opacity-25 capitalize" 
-								href="/caninclude"
-								onClick={onMenuItemClick}>Result</Link>
-						</li>
+						<ResultMenuItem href="/caninclude" onClick={onMenuItemClick} />
+					)}</Match>
+					<Match path="/can/include">{({ matches }) => matches && (
+						<ResultMenuItem href="/can/include" onClick={onMenuItemClick} />
 					)}</Match>
 					<li class="contents">
 						<a 
@@ -52,11 +50,10 @@ const Header = () => {
 				<ThemeSwitcher class={`${ menuClosed ? '' : 'justify-self-end'}`} />
 				<Hamburger onClick={onMenuBtnClick} closed={menuClosed} />
 				<Match path="/caninclude">{
-					({ matches }) => matches && (
-						<Link href="/" class="absolute left-0 top-0 p-4 w-14 h-14 sm:hidden" onClick={onMenuItemClick}>
-							<LeftArrowIcon />
-						</Link>
-					)}
+					({ matches }) => matches && <BackLink onClick={onMenuItemClick} />}
+				</Match>
+				<Match path="/can/include">{
+					({ matches }) => matches && <BackLink onClick={onMenuItemClick} />}
 				</Match>
 			</nav>
 			<div class={`flex flex-wrap font-thin justify-self-end px-4 py-2 ${ menuClosed && 'hidden sm:block' }`}>v 2.0</div>
