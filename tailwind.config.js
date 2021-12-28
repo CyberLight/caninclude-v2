@@ -11,7 +11,7 @@ module.exports = {
       },
       backgroundImage: {
         swap: 'url(/assets/swap.svg)',
-        logo: 'url(/assets/logo.svg)'
+        logo: 'url(/assets/logo-ny.svg)'
       },
       boxShadow: {
         'inset-thin': 'inset 0 2px 5px rgba(0,0,0,.2)'

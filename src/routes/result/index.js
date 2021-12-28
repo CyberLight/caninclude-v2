@@ -113,7 +113,7 @@ const Result = ({ matches: { child, parent } = {} }) => {
 	}
 
 	return (
-		<main class="block min-h-content">
+		<main class="block min-h-content bg-repeat" style="background-image: url(/assets/bg-ny.svg)">
 			<h1 class="sr-only">Result of including a tag in a tag</h1>
 			<noscript>
 				<div class="w-full p-2 bg-red-500 dark:bg-red-600 text-center">
@@ -203,9 +203,9 @@ const Result = ({ matches: { child, parent } = {} }) => {
 						{ iconType === DoubtIconType && <DoubtIcon /> }
 						{ !iconType && <div class="w-12 h-12 bg-gray-400 dark:bg-gray-600 rounded-full mb-1" /> }
 					</div>
-					{ iconType === CanIconType && <span class="flex text-green-600 dark:text-green-400">Yes, you can!</span> }
-					{ iconType === CantIconType && <span class="flex text-red-600 dark:text-red-400">No, you can't!</span> }
-					{ iconType === DoubtIconType && <span class="flex text-yellow-600 dark:text-yellow-400">Doubt?!</span> }
+					{ iconType === CanIconType && <span class="flex text-green-600 dark:text-green-400 bg-white p-2 dark:bg-black/70 rounded-lg">Yes, you can!</span> }
+					{ iconType === CantIconType && <span class="flex text-red-600 dark:text-red-400 bg-white p-2 dark:bg-black/70 rounded-lg">No, you can't!</span> }
+					{ iconType === DoubtIconType && <span class="flex text-yellow-600 dark:text-yellow-400 bg-white p-2 dark:bg-black/70 rounded-lg">Doubt?!</span> }
 					{ !iconType && <span class="flex w-1/2 h-4 bg-gray-400 dark:bg-gray-600" /> }
 				</section>					
 				<section class="flex flex-col p-2 m-4 bg-gray-200 dark:bg-gray-800 rounded-lg order-4 peer-checked:hidden h-auto space-y-1 relative md:peer-checked:flex md:flex md:order-4 md:flex-grow md:w-1/3 md:pt-16">
