@@ -49,6 +49,7 @@
     "sirv-cli": "1.0.3"
   },
   "dependencies": {
+    "@polka/send-type": "^0.5.2",
     "caninclude-analyzer": "github:CyberLight/caninclude-analyzer#v1.0.7",
     "lodash": "^4.17.21",
     "pm2": "^5.1.2",

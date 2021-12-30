@@ -1,8 +1,9 @@
 const get = require('lodash/get');
+const send = require('@polka/send-type');
 const spec = require('./spec.json');
 const params = require('./params.json');
 const {CanincludeAnalyzer, rules} = require('caninclude-analyzer');
-const {makeHeadersFor, copyObject} = require('./utils');
+const {copyObject} = require('./utils');
 const analyzer = new CanincludeAnalyzer(rules);
 
 const resultsMap = {
@@ -17,9 +18,8 @@ module.exports = {
 		const requiredQueryParams = [child, parent];
 
 		if (!requiredQueryParams.every(Boolean)) {
-			const data = JSON.stringify({ ok: false, message: 'Please set "child" and "parent" parameters',  type: 'warning' });
-			res.writeHead(400, makeHeadersFor(data));
-			return res.end(data);
+			const data = { ok: false, message: 'Please set "child" and "parent" parameters',  type: 'warning' };
+			return send(res, 400, data);
 		}
 
 		const childTagFormatted = child.toLowerCase();
@@ -30,9 +30,8 @@ module.exports = {
 			.filter((tag) => targetTags.includes(tag.tag));
 			
 		if (filteredTags.length < 2 && childTagFormatted !== parentTagFormatted) {
-			const data = JSON.stringify({ ok: false, message: 'Some values from parameters were not found',  type: 'warning' });
-			res.writeHead(400, makeHeadersFor(data));
-			return res.end(data);
+			const data = { ok: false, message: 'Some values from parameters were not found',  type: 'warning' };
+			return send(res, 400, data);
 		}
 
 		const tags = filteredTags.reduce((o, tag) => ({[tag.tag]: tag, ...o}), {});	
@@ -67,8 +66,7 @@ module.exports = {
 				can: resultsMap[result.include.alternative.can],
 			};
 		}
-		const data = JSON.stringify({ ok: true, result });
-		res.writeHead(200, makeHeadersFor(data));
-		res.end(data);
+		const data = { ok: true, result };
+		send(res, 200, data);
 	}
 }
