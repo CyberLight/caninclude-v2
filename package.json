@@ -20,7 +20,7 @@
     "pm2:logs": "pm2 logs webapp --lines 100",
     "pm2:log:rotate": "pm2 install pm2-logrotate",
     "pm2:flush": "pm2 flush",
-    "glitch:pack": "node ./utils/archive.js",
+    "glitch:pack": "npm run build && node ./utils/archive.js",
     "glitch:unpack": "unzip -o glitch_release_*.zip -d . && rm glitch_release_*.zip && refresh",
     "glitch:apply": "refresh",
     "glitch:wget": "node ./utils/wget"
@@ -49,7 +49,7 @@
     "sirv-cli": "1.0.3"
   },
   "dependencies": {
-    "caninclude-analyzer": "github:CyberLight/caninclude-analyzer#v1.0.6",
+    "caninclude-analyzer": "github:CyberLight/caninclude-analyzer#v1.0.7",
     "lodash": "^4.17.21",
     "pm2": "^5.1.2",
     "polka": "^0.5.2",
