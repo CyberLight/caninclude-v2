@@ -1,5 +1,6 @@
 const polka = require('polka');
 const send = require('@polka/send-type');
+const logger = require('pino-http')()
 const { PORT=8080 } = process.env;
 
 const isProd = process.env.NODE_ENV === 'production';
@@ -16,6 +17,10 @@ function onError(err, req, res) {
 }
 
 let app = polka({ onError });
+	app.use((req, res, next) => {
+		logger(req, res);
+		next();
+	})
 	app.use((req, res, next) => {
 		if (!req.headers['x-forwarded-proto'] || req.headers['x-forwarded-proto'].indexOf('https') !== -1) {
 			return next();
