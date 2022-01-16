@@ -59,7 +59,7 @@
     "preact-render-to-string": "^5.1.19",
     "preact-router": "^3.2.1",
     "sirv": "^1.0.18",
-    "tailwindcss": "^3.0.7"
+    "tailwindcss": "^2.2.19"
   },
   "jest": {
     "preset": "jest-preset-preact",

@@ -34,7 +34,7 @@ const Search = () => {
                     onInput={onChildInput}
                     value={formData.child} />
             </p>
-            <p class="h-10 md:h-full rounded-md focus-within:border focus-within:rounded-md focus-within:border-blue-400">
+            <p class="h-10 md:h-full focus-within:border focus-within:rounded-md focus-within:border-blue-400">
                 <input type="checkbox" id="swap" name="swap" class="peer sr-only" checked={swap} onClick={swapClick} />
                 <label 
                     class="block px-2 w-14 h-full border border-purple-500 dark:border-gray-500 rounded-md focus-within:border-blue-400 peer-checked:bg-purple-600 peer-checked:text-white dark:peer-checked:bg-white dark:peer-checked:text-black sm:h-full" 
