@@ -1,6 +1,7 @@
 import { h } from 'preact';
 import { useState } from 'preact/hooks';
 import { route } from 'preact-router';
+import Swap from '../icons/swap';
 
 const Search = () => {
     const [swap, setSwap] = useState(false);
@@ -39,20 +40,7 @@ const Search = () => {
                 <label 
                     class="block px-2 w-14 h-full border border-purple-500 dark:border-gray-500 rounded-md focus-within:border-blue-400 peer-checked:bg-purple-600 peer-checked:text-white dark:peer-checked:bg-white dark:peer-checked:text-black sm:h-full" 
                     htmlFor="swap">
-                    <svg 
-                        class="fill-current h-full mx-auto" 
-                        width="28px" 
-                        height="28px" 
-                        viewBox="0 0 24 24" 
-                        xmlns="http://www.w3.org/2000/svg">
-                        <g data-name="Layer 2">
-                            <g data-name="swap">
-                                <rect width="24" height="24" transform="rotate(-90 12 12)" opacity="0" />
-                                <path d="M4 9h13l-1.6 1.2a1 1 0 0 0-.2 1.4 1 1 0 0 0 .8.4 1 1 0 0 0 .6-.2l4-3a1 1 0 0 0 0-1.59l-3.86-3a1 1 0 0 0-1.23 1.58L17.08 7H4a1 1 0 0 0 0 2z" />
-                                <path d="M20 16H7l1.6-1.2a1 1 0 0 0-1.2-1.6l-4 3a1 1 0 0 0 0 1.59l3.86 3a1 1 0 0 0 .61.21 1 1 0 0 0 .79-.39 1 1 0 0 0-.17-1.4L6.92 18H20a1 1 0 0 0 0-2z" />
-                            </g>
-                        </g>
-                    </svg>
+                    <Swap class="h-full mx-auto" />
                 </label>
             </p>
             <p>
